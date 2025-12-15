@@ -281,8 +281,16 @@
     /* ===== CONTACT FORM HANDLING ===== */
     const contactForm = document.getElementById('contactForm');
 
+    // Ensure form doesn't submit normally
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            handleSubmit(e);
+        });
+    }
+
     function handleSubmit(event) {
-        event.preventDefault();
+        // Already prevented by event listener
 
         const submitBtn = contactForm.querySelector('.btn-primary');
         const originalText = submitBtn.innerHTML;
