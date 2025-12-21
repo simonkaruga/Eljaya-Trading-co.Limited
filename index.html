@@ -12,8 +12,29 @@
     <meta property="og:description" content="Elevate your brand with premium eco-friendly merchandise and packaging solutions">
     <meta property="og:type" content="website">
     
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- Critical CSS inlined for faster initial render -->
+    <style>
+        /* Critical above-the-fold styles */
+        body { margin: 0; font-family: 'Inter', sans-serif; }
+        .wp-preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 9999; display: flex; align-items: center; justify-content: center; }
+        .preloader-inner { text-align: center; }
+        .preloader-logo { width: 80px; height: 80px; margin-bottom: 20px; }
+        .brand-loader { display: flex; align-items: center; justify-content: center; flex-direction: column; }
+        .letter { font-size: 2rem; font-weight: 700; color: #2c3e50; animation: pulse 1.5s infinite; margin: 0 2px; }
+        .loading-text { color: #7f8c8d; margin-top: 15px; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+    </style>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="style.css" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style">
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+
+    <!-- Non-critical CSS loaded asynchronously -->
+    <link rel="preload" href="style.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="style.min.css"></noscript>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -24,7 +45,7 @@
 <div id="preloader" class="wp-preloader">
     <div class="preloader-inner">
         <div class="brand-loader">
-            <img src="images/elijaya-logo.jpeg" alt="Eljaya Logo" class="preloader-logo">
+            <img src="images/elijaya-logo.webp" alt="Eljaya Logo" class="preloader-logo" loading="eager" fetchpriority="high">
             <span class="letter">E</span>
             <span class="letter">J</span>
         </div>
@@ -177,7 +198,10 @@
                 <div class="service-grid">
                     <div class="service-card">
                         <div class="service-image">
-                            <img src="images/polo-tshirts.jpg" alt="Corporate Apparel">
+                            <picture>
+                        <source srcset="images/polo-tshirts.webp" type="image/webp">
+                        <img src="images/polo-tshirts.jpg" alt="Corporate Apparel" loading="lazy">
+                    </picture>
                             <div class="service-overlay">
                                 <a href="#contact" class="overlay-btn">Start Project</a>
                             </div>
@@ -196,7 +220,10 @@
 
                     <div class="service-card">
                         <div class="service-image">
-                            <img src="images/bottles.jpg" alt="Branded Bottles">
+                            <picture>
+                        <source srcset="images/bottles.webp" type="image/webp">
+                        <img src="images/bottles.jpg" alt="Branded Bottles" loading="lazy">
+                    </picture>
                             <div class="service-overlay">
                                 <a href="#contact" class="overlay-btn">Start Project</a>
                             </div>
@@ -215,7 +242,10 @@
 
                     <div class="service-card">
                         <div class="service-image">
-                            <img src="images/banners.jpg" alt="Custom Banners">
+                            <picture>
+                        <source srcset="images/banners.webp" type="image/webp">
+                        <img src="images/banners.jpg" alt="Custom Banners" loading="lazy">
+                    </picture>
                             <div class="service-overlay">
                                 <a href="#contact" class="overlay-btn">Start Project</a>
                             </div>
@@ -234,7 +264,10 @@
 
                     <div class="service-card">
                         <div class="service-image">
-                            <img src="images/reflectors.jpg" alt="Safety Reflectors">
+                            <picture>
+                        <source srcset="images/reflectors.webp" type="image/webp">
+                        <img src="images/reflectors.jpg" alt="Safety Reflectors" loading="lazy">
+                    </picture>
                             <div class="service-overlay">
                                 <a href="#contact" class="overlay-btn">Start Project</a>
                             </div>
@@ -253,7 +286,7 @@
 
                     <div class="service-card">
                         <div class="service-image">
-                            <img src="images/caps.jpg" alt="Branded Headwear">
+                            <img src="images/caps.jpg" alt="Branded Headwear" loading="lazy">
                             <div class="service-overlay">
                                 <a href="#contact" class="overlay-btn">Start Project</a>
                             </div>
@@ -1025,7 +1058,29 @@
     <i class="fas fa-arrow-up"></i>
 </button>
 
-<script src="script.js"></script>
+<!-- Optimized JavaScript loading -->
+<script>
+    // Web Worker for non-blocking computations
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js')
+            .then(registration => console.log('SW registered'))
+            .catch(error => console.log('SW registration failed'));
+    }
+
+    // Use requestIdleCallback for non-critical JS
+    if ('requestIdleCallback' in window) {
+        requestIdleCallback(() => {
+            // Load analytics, tracking, etc. here
+            console.log('Idle callback executed');
+        });
+    } else {
+        // Fallback for browsers without requestIdleCallback
+        setTimeout(() => {
+            console.log('Fallback timeout executed');
+        }, 2000);
+    }
+</script>
+<script src="script.min.js" defer></script>
 </body>
 </html>
 <!-- WordPress-style Preloader -->

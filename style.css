@@ -1,3 +1,78 @@
+/* ==========================================
+   PERFORMANCE OPTIMIZATIONS - FONT & CLS FIXES
+   ========================================== */
+
+/* Font Style Matching - Prevent visual jump during font swap */
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1, 'ss01' 1;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Fallback font optimization for Inter */
+.font-loading body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    letter-spacing: -0.01em; /* Fine-tune to match Inter */
+    font-weight: 400;
+}
+
+/* Aspect Ratio Boxes - Prevent CLS */
+.service-image {
+    aspect-ratio: 4/3;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(110deg, #f0f0f0 8%, #e0e0e0 18%, #f0f0f0 33%);
+    background-size: 200% 100%;
+    animation: loading-shimmer 1.5s ease-in-out infinite;
+}
+
+.service-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: opacity 0.3s ease;
+}
+
+@keyframes loading-shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+/* Modern browsers (Chrome 88+, Firefox 87+) */
+@supports (aspect-ratio: 1) {
+    .service-image {
+        aspect-ratio: 4/3;
+    }
+}
+
+/* Fallback for older browsers */
+@supports not (aspect-ratio: 1) {
+    .service-image::before {
+        content: '';
+        display: block;
+        padding-bottom: 75%; /* 4:3 aspect ratio fallback */
+    }
+}
+
+/* Responsive aspect ratios */
+@media (max-width: 768px) {
+    .service-image {
+        aspect-ratio: 16/9;
+    }
+
+    @supports not (aspect-ratio: 1) {
+        .service-image::before {
+            padding-bottom: 56.25%; /* 16:9 fallback */
+        }
+    }
+}
+
 /* ===== 1. CSS VARIABLES ===== */
 :root {
     --color-primary: #00a859;

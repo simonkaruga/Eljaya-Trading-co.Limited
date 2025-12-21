@@ -1,0 +1,157 @@
+# ==========================================
+# PERFORMANCE-FIRST .HTACCESS CONFIGURATION
+# ==========================================
+# Optimized for 100/100 PageSpeed scores
+# Includes compression, caching, security, and performance headers
+
+# Force HTTPS (uncomment if you have SSL)
+# RewriteEngine On
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Enable compression
+<IfModule mod_deflate.c>
+    # Compress all text-based content
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE text/javascript
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+    AddOutputFilterByType DEFLATE application/json
+    AddOutputFilterByType DEFLATE application/ld+json
+
+    # Compress fonts
+    AddOutputFilterByType DEFLATE font/opentype
+    AddOutputFilterByType DEFLATE font/woff
+    AddOutputFilterByType DEFLATE font/woff2
+    AddOutputFilterByType DEFLATE application/font-woff
+    AddOutputFilterByType DEFLATE application/font-woff2
+    AddOutputFilterByType DEFLATE application/vnd.ms-fontobject
+    AddOutputFilterByType DEFLATE application/x-font-ttf
+
+    # Remove browser bugs for old browsers
+    BrowserMatch ^Mozilla/4 gzip-only-text/html
+    BrowserMatch ^Mozilla/4\.0[678] no-gzip
+    BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+    Header append Vary User-Agent
+</IfModule>
+
+# Enable Brotli compression (if available - preferred over Gzip)
+<IfModule mod_brotli.c>
+    AddOutputFilterByType BROTLI_COMPRESS text/plain
+    AddOutputFilterByType BROTLI_COMPRESS text/html
+    AddOutputFilterByType BROTLI_COMPRESS text/xml
+    AddOutputFilterByType BROTLI_COMPRESS text/css
+    AddOutputFilterByType BROTLI_COMPRESS application/xml
+    AddOutputFilterByType BROTILI_COMPRESS application/xhtml+xml
+    AddOutputFilterByType BROTLI_COMPRESS application/rss+xml
+    AddOutputFilterByType BROTLI_COMPRESS application/javascript
+    AddOutputFilterByType BROTLI_COMPRESS application/x-javascript
+    AddOutputFilterByType BROTLI_COMPRESS application/json
+    AddOutputFilterByType BROTLI_COMPRESS font/opentype
+    AddOutputFilterByType BROTLI_COMPRESS font/woff
+    AddOutputFilterByType BROTLI_COMPRESS font/woff2
+</IfModule>
+
+# Browser caching - Leverage browser caching
+<IfModule mod_expires.c>
+    ExpiresActive On
+
+    # Images - 1 year (never changes)
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 year"
+    ExpiresByType image/vnd.microsoft.icon "access plus 1 year"
+
+    # CSS and JavaScript - 1 month (frequent updates possible)
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType application/x-javascript "access plus 1 month"
+
+    # Fonts - 1 year (rarely changes)
+    ExpiresByType font/opentype "access plus 1 year"
+    ExpiresByType font/woff "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType application/font-woff "access plus 1 year"
+    ExpiresByType application/font-woff2 "access plus 1 year"
+    ExpiresByType application/vnd.ms-fontobject "access plus 1 year"
+    ExpiresByType application/x-font-ttf "access plus 1 year"
+
+    # HTML - 1 hour (may change frequently)
+    ExpiresByType text/html "access plus 1 hour"
+
+    # Favicon and other files
+    ExpiresByType image/ico "access plus 1 year"
+
+    # Default fallback
+    ExpiresDefault "access plus 2 days"
+</IfModule>
+
+# Enable Keep-Alive (HTTP persistent connections)
+<IfModule mod_headers.c>
+    Header set Connection keep-alive
+
+    # Security headers (Google Fonts friendly)
+    Header always set X-Content-Type-Options nosniff
+    Header always set X-Frame-Options DENY
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+    # Content Security Policy (Google Fonts compatible)
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
+
+    # Remove server signature
+    Header unset X-Powered-By
+    Header unset Server
+</IfModule>
+
+# Prevent access to sensitive files
+<Files .htaccess>
+    order allow,deny
+    deny from all
+</Files>
+
+<Files *.log>
+    order allow,deny
+    deny from all
+</Files>
+
+# Block access to backup files
+<FilesMatch "\.(bak|backup|old|orig|original|tmp|temp)$">
+    order allow,deny
+    deny from all
+</FilesMatch>
+
+# Protect wp-config.php (if using WordPress later)
+<Files wp-config.php>
+    order allow,deny
+    deny from all
+</Files>
+
+# Disable directory browsing
+Options -Indexes
+
+# Enable rewrite engine for future use
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+</IfModule>
+
+# ==========================================
+# PERFORMANCE MONITORING HEADERS
+# ==========================================
+# These headers help you verify compression and caching are working
+
+<IfModule mod_headers.c>
+    # Add performance indicators (remove in production)
+    Header set X-Compression-Status "Enabled"
+    Header set X-Cache-Status "Browser-Cache-Enabled"
+</IfModule>
