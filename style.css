@@ -3598,6 +3598,85 @@ p {
     transform: scale(1);
 }
 
+/* ===== QR CODE STYLING ===== */
+.qr-card {
+    position: relative;
+    overflow: visible;
+}
+
+.qr-code-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-sm);
+}
+
+.qr-code {
+    width: 150px;
+    height: 150px;
+    border-radius: var(--radius-md);
+    border: 2px solid rgba(0, 168, 89, 0.2);
+    background: var(--color-white);
+    padding: var(--spacing-xs);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+    position: relative;
+    z-index: 2;
+}
+
+.qr-card:hover .qr-code {
+    transform: scale(1.05);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    border-color: var(--color-primary);
+}
+
+.qr-text {
+    font-size: 0.875rem;
+    color: var(--color-text-light);
+    font-weight: var(--font-weight-medium);
+    text-align: center;
+    margin: 0;
+    opacity: 0.9;
+    transition: color 0.3s ease;
+}
+
+.qr-card:hover .qr-text {
+    color: var(--color-primary);
+}
+
+/* QR Code Enhancement Effects */
+.qr-code::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    border-radius: var(--radius-md);
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    filter: blur(2px);
+}
+
+.qr-card:hover .qr-code::before {
+    opacity: 0.3;
+}
+
+/* QR Code Label Styling */
+.qr-card .info-content h3 {
+    color: var(--color-primary);
+    font-weight: var(--font-weight-bold);
+    text-shadow: 0 1px 2px rgba(0, 168, 89, 0.1);
+}
+
+.qr-card:hover .info-content h3 {
+    color: var(--color-primary);
+    text-shadow: 0 2px 4px rgba(0, 168, 89, 0.2);
+}
+
 /* ===== 19. RESPONSIVE DESIGN - Enhanced Mobile Card Sizing ===== */
 @media (max-width: 1024px) {
     :root {
