@@ -119,9 +119,8 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
 
     <!-- Non-critical CSS loaded asynchronously -->
-    <link rel="preload" href="style.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="style.min.css"></noscript>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="style.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -1158,27 +1157,6 @@
 </button>
 
 <!-- Optimized JavaScript loading -->
-<script>
-    // Web Worker for non-blocking computations
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js')
-            .then(registration => console.log('SW registered'))
-            .catch(error => console.log('SW registration failed'));
-    }
-
-    // Use requestIdleCallback for non-critical JS
-    if ('requestIdleCallback' in window) {
-        requestIdleCallback(() => {
-            // Load analytics, tracking, etc. here
-            console.log('Idle callback executed');
-        });
-    } else {
-        // Fallback for browsers without requestIdleCallback
-        setTimeout(() => {
-            console.log('Fallback timeout executed');
-        }, 2000);
-    }
-</script>
 <script src="script.min.js" defer></script>
 </body>
 </html>
