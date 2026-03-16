@@ -439,6 +439,13 @@
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
             submitBtn.disabled = true;
 
+            if (typeof emailjs === 'undefined') {
+                showNotification('Email service unavailable. Please call us at +254 718 146 386.', 'error');
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                return;
+            }
+
             emailjs.send('YOUR_EMAILJS_SERVICE_ID', 'YOUR_EMAILJS_TEMPLATE_ID', {
                 from_name: data.name,
                 from_email: data.email,
