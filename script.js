@@ -10,9 +10,9 @@
     /* ===== PRELOADER ===== */
     window.addEventListener('load', function() {
         const preloader = document.getElementById('preloader');
-        setTimeout(function() {
+        if (preloader) {
             preloader.classList.add('hidden');
-        }, 1500);
+        }
     });
     
     /* ===== HEADER SCROLL EFFECT ===== */
@@ -161,115 +161,66 @@
     });
     
     /* ===== TESTIMONIALS CAROUSEL ===== */
-    const testimonials = [
-        {
-            text: "Eljaya transformed our brand identity completely. Their strategic approach and attention to detail resulted in a cohesive brand that truly represents our values. Our market presence has never been stronger.",
-            name: "Sarah Kimani",
-            position: "CEO, TechHub Africa"
-        },
-        {
-            text: "Working with Eljaya was a game-changer for our business. They didn't just provide products; they helped us develop a brand strategy that resonates with our target audience. Highly recommended!",
-            name: "David Ochieng",
-            position: "Marketing Director, Green Valley Resorts"
-        },
-        {
-            text: "The quality of work and professionalism from Eljaya is outstanding. They delivered our branded merchandise on time and exceeded our expectations. Our team loves the new uniforms!",
-            name: "Mary Wanjiru",
-            position: "HR Manager, Nairobi International School"
-        },
-        {
-            text: "Exceptional service and innovative solutions. Eljaya helped us position our brand as a market leader through strategic branding and eco-friendly packaging. Our customers have noticed the difference.",
-            name: "James Mwangi",
-            position: "Founder, EcoMart Kenya"
-        }
-    ];
-    
     const testimonialTrack = document.getElementById('testimonialTrack');
     const carouselDots = document.getElementById('carouselDots');
     let currentTestimonial = 0;
     let testimonialInterval;
-    
-    function renderTestimonials() {
+
+    function initDots() {
         if (!testimonialTrack || !carouselDots) return;
-        
-        testimonialTrack.innerHTML = '';
+        const items = testimonialTrack.querySelectorAll('.testimonial-item');
         carouselDots.innerHTML = '';
-        
-        testimonials.forEach(function(testimonial, index) {
-            // Create testimonial item
-            const item = document.createElement('div');
-            item.className = 'testimonial-item';
-            item.innerHTML = `
-                <div class="testimonial-content">
-                    <div class="testimonial-text">"${testimonial.text}"</div>
-                    <div class="testimonial-author">
-                        <div class="author-info">
-                            <h4>${testimonial.name}</h4>
-                            <p>${testimonial.position}</p>
-                        </div>
-                    </div>
-                </div>
-            `;
-            testimonialTrack.appendChild(item);
-            
-            // Create dot
+        items.forEach(function(_, index) {
             const dot = document.createElement('div');
             dot.className = 'carousel-dot' + (index === 0 ? ' active' : '');
-            dot.addEventListener('click', function() {
-                goToTestimonial(index);
-            });
+            dot.addEventListener('click', function() { goToTestimonial(index); });
             carouselDots.appendChild(dot);
         });
     }
-    
+
     function showTestimonial(index) {
         if (!testimonialTrack) return;
-        
         const width = testimonialTrack.parentElement.offsetWidth;
         testimonialTrack.style.transform = `translateX(-${index * width}px)`;
-        
-        // Update dots
         document.querySelectorAll('.carousel-dot').forEach(function(dot, i) {
             dot.classList.toggle('active', i === index);
         });
     }
-    
+
     function prevTestimonial() {
-        currentTestimonial = (currentTestimonial - 1 + testimonials.length) % testimonials.length;
+        const count = testimonialTrack ? testimonialTrack.querySelectorAll('.testimonial-item').length : 0;
+        currentTestimonial = (currentTestimonial - 1 + count) % count;
         showTestimonial(currentTestimonial);
         resetTestimonialInterval();
     }
-    
+
     function nextTestimonial() {
-        currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+        const count = testimonialTrack ? testimonialTrack.querySelectorAll('.testimonial-item').length : 0;
+        currentTestimonial = (currentTestimonial + 1) % count;
         showTestimonial(currentTestimonial);
         resetTestimonialInterval();
     }
-    
+
     function goToTestimonial(index) {
         currentTestimonial = index;
         showTestimonial(currentTestimonial);
         resetTestimonialInterval();
     }
-    
+
     function startTestimonialInterval() {
-        testimonialInterval = setInterval(function() {
-            nextTestimonial();
-        }, 5000);
+        testimonialInterval = setInterval(function() { nextTestimonial(); }, 5000);
     }
-    
+
     function resetTestimonialInterval() {
         clearInterval(testimonialInterval);
         startTestimonialInterval();
     }
-    
-    // Make functions available globally
+
     window.prevTestimonial = prevTestimonial;
     window.nextTestimonial = nextTestimonial;
-    
-    // Initialize testimonials
+
     if (testimonialTrack && carouselDots) {
-        renderTestimonials();
+        initDots();
         startTestimonialInterval();
         
         // Update on resize
@@ -400,51 +351,34 @@
             const formData = new FormData(this);
             const data = Object.fromEntries(formData);
 
-            // Basic validation
             if (!data.name || !data.email || !data.phone || !data.service || !data.message) {
                 showNotification('Please fill in all required fields.', 'error');
                 return;
             }
 
-            // Show loading state
             const submitBtn = contactForm.querySelector('button[type="submit"]');
             const originalText = submitBtn.innerHTML;
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
             submitBtn.disabled = true;
 
-            // Create mailto link as fallback
-            const subject = encodeURIComponent('New Contact Form Submission - ' + data.service);
-            const body = encodeURIComponent(`
-Name: ${data.name}
-Email: ${data.email}
-Phone: ${data.phone}
-Company: ${data.company || 'Not provided'}
-Service: ${data.service}
-Message: ${data.message}
-
-Sent from Eljaya Trading Co. website contact form.
-            `);
-
-            const mailtoLink = `mailto:eljayasupplies@gmail.com?subject=${subject}&body=${body}`;
-
-            // Try to open email client
-            try {
-                window.location.href = mailtoLink;
-                showNotification('Opening your email client...', 'success');
-
-                // Reset form after short delay
-                setTimeout(function() {
-                    contactForm.reset();
-                    submitBtn.innerHTML = originalText;
-                    submitBtn.disabled = false;
-                }, 2000);
-
-            } catch (error) {
-                console.error('Email client error:', error);
-                showNotification('Unable to open email client. Please contact us directly at eljayasupplies@gmail.com', 'error');
+            emailjs.send('YOUR_EMAILJS_SERVICE_ID', 'YOUR_EMAILJS_TEMPLATE_ID', {
+                from_name: data.name,
+                from_email: data.email,
+                phone: data.phone,
+                company: data.company || 'Not provided',
+                service: data.service,
+                message: data.message
+            }).then(function() {
+                showNotification('Message sent! We\'ll be in touch shortly.', 'success');
+                contactForm.reset();
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
-            }
+            }, function(error) {
+                console.error('EmailJS error:', error);
+                showNotification('Failed to send message. Please call us at +254 718 146 386.', 'error');
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            });
         });
     }
 
