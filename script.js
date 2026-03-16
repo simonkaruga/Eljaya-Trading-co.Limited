@@ -6,7 +6,7 @@
 
 (function() {
     'use strict';
-    
+
     /* ===== PRELOADER ===== */
     window.addEventListener('load', function() {
         const preloader = document.getElementById('preloader');
@@ -14,7 +14,88 @@
             preloader.classList.add('hidden');
         }
     });
-    
+
+    /* ===== HERO SLIDESHOW ===== */
+    (function() {
+        const INTERVAL = 6000;
+        const slides      = document.querySelectorAll('.hero-slide');
+        const dotsEl      = document.getElementById('heroSlideDots');
+        const nameEl      = document.getElementById('heroIndustryName');
+        const statEl      = document.getElementById('heroIndustryStat');
+        const progressEl  = document.getElementById('heroProgressBar');
+        if (!slides.length || !dotsEl) return;
+
+        const industries = [
+            { name: 'Corporate &amp; Finance',  stat: '120+ Clients'  },
+            { name: 'Retail &amp; E-commerce',  stat: '80+ Brands'    },
+            { name: 'Hospitality &amp; Tourism', stat: '50+ Properties'},
+            { name: 'Healthcare &amp; Wellness', stat: '40+ Facilities'},
+            { name: 'Education',                  stat: '60+ Schools'   },
+            { name: 'Non-Profit &amp; NGOs',     stat: '45+ Organizations'}
+        ];
+
+        let current = 0;
+        let progressTimer = null;
+        let progressStart = null;
+
+        // Build dots
+        slides.forEach(function(_, i) {
+            const dot = document.createElement('button');
+            dot.className = 'hero-slide-dot' + (i === 0 ? ' active' : '');
+            dot.setAttribute('aria-label', 'Slide ' + (i + 1));
+            dot.addEventListener('click', function() { goTo(i); });
+            dotsEl.appendChild(dot);
+        });
+
+        function restartKenBurns(slide) {
+            const img = slide.querySelector('picture img');
+            if (!img) return;
+            img.style.animation = 'none';
+            img.getBoundingClientRect(); // force reflow
+            img.style.animation = '';
+        }
+
+        function updatePanel(index) {
+            if (!nameEl || !statEl) return;
+            nameEl.innerHTML = industries[index].name;
+            statEl.textContent = industries[index].stat;
+        }
+
+        function startProgress() {
+            if (progressEl) progressEl.style.width = '0%';
+            cancelAnimationFrame(progressTimer);
+            progressStart = performance.now();
+            function tick(now) {
+                const pct = Math.min(100, ((now - progressStart) / INTERVAL) * 100);
+                if (progressEl) progressEl.style.width = pct + '%';
+                if (pct < 100) progressTimer = requestAnimationFrame(tick);
+            }
+            progressTimer = requestAnimationFrame(tick);
+        }
+
+        function goTo(index) {
+            cancelAnimationFrame(progressTimer);
+            slides[current].classList.remove('active');
+            dotsEl.children[current].classList.remove('active');
+
+            current = index;
+            slides[current].classList.add('active');
+            dotsEl.children[current].classList.add('active');
+            restartKenBurns(slides[current]);
+            updatePanel(current);
+            startProgress();
+        }
+
+        // Init first slide
+        restartKenBurns(slides[0]);
+        updatePanel(0);
+        startProgress();
+
+        setInterval(function() {
+            goTo((current + 1) % slides.length);
+        }, INTERVAL);
+    })();
+
     /* ===== HEADER SCROLL EFFECT ===== */
     const header = document.querySelector('.site-header');
     let lastScroll = 0;
@@ -108,19 +189,16 @@
     /* ===== ANIMATED COUNTER ===== */
     function animateCounter(element, target, duration) {
         duration = duration || 2000;
-        const start = 0;
-        const increment = target / (duration / 16);
-        let current = start;
-        
-        const timer = setInterval(function() {
-            current += increment;
-            if (current >= target) {
-                element.textContent = target;
-                clearInterval(timer);
-            } else {
-                element.textContent = Math.floor(current);
-            }
-        }, 16);
+        const startTime = performance.now();
+        function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+        function tick(now) {
+            const elapsed = now - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            element.textContent = Math.floor(easeOut(progress) * target);
+            if (progress < 1) requestAnimationFrame(tick);
+            else element.textContent = target;
+        }
+        requestAnimationFrame(tick);
     }
     
     /* ===== INTERSECTION OBSERVER FOR STATS ===== */

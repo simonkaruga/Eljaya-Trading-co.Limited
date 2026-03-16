@@ -3,46 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="About Eljaya Trading Co. – Nairobi's leading branding company since 2015. Strategic brand development, eco-friendly merchandise and market positioning for businesses across Kenya.">
+    <meta name="description" content="About Eljaya Trading Co. – Nairobi branding company since 2015. Expert brand identity, eco-friendly merchandise and market positioning.">
     <meta name="keywords" content="about Eljaya Trading Co, branding company Nairobi, brand strategy Kenya, eco-friendly branding Nairobi">
-    <title>About Us | Eljaya Trading Co. – Branding Company Nairobi</title>
+    <title>About Us | Eljaya Trading Co. – Branding Nairobi</title>
     <link rel="canonical" href="https://eljayatradingco.com/about.html">
     <meta property="og:title" content="About Eljaya Trading Co. | Branding Company Nairobi">
     <meta property="og:description" content="Learn about Eljaya Trading Co., Nairobi's leading branding company since 2015. Strategic brand development and eco-friendly merchandise solutions.">
     <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Eljaya Trading Co.">
     <meta property="og:url" content="https://eljayatradingco.com/about.html">
     <meta property="og:image" content="https://eljayatradingco.com/images/elijaya-logo.webp">
+    <meta property="og:image:alt" content="Eljaya Trading Co. Limited - Branding Company in Nairobi Kenya">
     <meta name="robots" content="index, follow">
     <link rel="icon" type="image/webp" href="images/elijaya-logo.webp">
     <style>
         body { margin: 0; font-family: 'Inter', sans-serif; }
-        .wp-preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 9999; display: flex; align-items: center; justify-content: center; }
-        .preloader-inner { text-align: center; }
-        .brand-loader { display: flex; align-items: center; justify-content: center; flex-direction: column; }
-        .letter { font-size: 2rem; font-weight: 700; color: #2c3e50; animation: pulse 1.5s infinite; margin: 0 2px; }
-        .loading-text { color: #7f8c8d; margin-top: 15px; }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
     </style>
     <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link rel="stylesheet" href="style.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"></noscript>
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700&display=swap">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="About Eljaya Trading Co. | Branding Company Nairobi">
+    <meta name="twitter:description" content="Nairobi's leading branding company since 2015. Expert brand identity, eco-friendly merchandise and market positioning.">
+    <meta name="twitter:image" content="https://eljayatradingco.com/images/elijaya-logo.webp">
+    <meta name="twitter:image:alt" content="Eljaya Trading Co. Limited - Branding Company in Nairobi Kenya">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "AboutPage",
+      "name": "About Eljaya Trading Co.",
+      "url": "https://eljayatradingco.com/about.html",
+      "description": "About Eljaya Trading Co. – Nairobi branding company since 2015.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Eljaya Trading Co. Limited",
+        "url": "https://eljayatradingco.com",
+        "logo": "https://eljayatradingco.com/images/elijaya-logo.webp"
+      }
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://eljayatradingco.com/"},
+        {"@type": "ListItem", "position": 2, "name": "About Us", "item": "https://eljayatradingco.com/about.html"}
+      ]
+    }
+    </script>
 </head>
 <body class="wp-site">
-
-    <div id="preloader" class="wp-preloader">
-        <div class="preloader-inner">
-            <div class="brand-loader">
-                <img src="images/elijaya-logo.webp" alt="Eljaya Logo" class="preloader-logo" loading="eager" fetchpriority="high">
-                <span class="letter">E</span>
-                <span class="letter">J</span>
-            </div>
-            <div class="loading-text">Loading Brand Experience</div>
-        </div>
-    </div>
 
     <header id="masthead" class="site-header" role="banner">
         <div class="header-container">
@@ -76,7 +96,22 @@
         </div>
     </header>
 
-    <section id="about" class="content-section about-section" style="padding-top: 160px;">
+    <div class="page-hero">
+        <div class="page-hero-bg" style="background-image: url('images/hero-corporate.webp');"></div>
+        <div class="page-hero-content">
+            <div class="container">
+                <span class="page-hero-label">Our Story</span>
+                <h2 class="page-hero-title">About <span>Eljaya</span></h2>
+                <nav class="page-hero-breadcrumb" aria-label="Breadcrumb">
+                    <a href="index.html">Home</a>
+                    <i class="fas fa-chevron-right"></i>
+                    <span>About Us</span>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <section id="about" class="content-section about-section">
         <div class="container">
             <div class="section-header centered" data-aos="fade-up">
                 <span class="section-label">Who We Are</span>
@@ -305,6 +340,6 @@
         <i class="fas fa-arrow-up"></i>
     </button>
 
-    <script src="script.min.js" defer></script>
+    <script src="script.js" defer></script>
 </body>
 </html>
