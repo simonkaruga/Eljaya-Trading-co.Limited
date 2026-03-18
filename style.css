@@ -2752,7 +2752,7 @@ body:not(.home) .site-header .menu-item-cta a { background: var(--color-primary)
     letter-spacing: 0.5px;
 }
 
-.author-info h4 {
+.author-info h4, .author-name {
     font-family: var(--font-primary);
     font-size: 1rem;
     font-weight: var(--font-weight-bold);
@@ -3652,51 +3652,28 @@ body:not(.home) .site-header .menu-item-cta a { background: var(--color-primary)
 /* AOS Animations */
 [data-aos] {
     opacity: 0;
-    transition: opacity 0.8s ease, transform 0.8s ease;
+    will-change: opacity;
+    transition: opacity 0.8s ease;
 }
 
 [data-aos].aos-animate {
     opacity: 1;
 }
 
-[data-aos="fade-up"] {
-    transform: translateY(50px);
-}
-
-[data-aos="fade-up"].aos-animate {
-    transform: translateY(0);
-}
-
-[data-aos="fade-down"] {
-    transform: translateY(-50px);
-}
-
-[data-aos="fade-down"].aos-animate {
-    transform: translateY(0);
-}
-
-[data-aos="fade-right"] {
-    transform: translateX(-50px);
-}
-
-[data-aos="fade-right"].aos-animate {
-    transform: translateX(0);
-}
-
-[data-aos="fade-left"] {
-    transform: translateX(50px);
-}
-
-[data-aos="fade-left"].aos-animate {
-    transform: translateX(0);
-}
-
+[data-aos="fade-up"],
+[data-aos="fade-down"],
+[data-aos="fade-right"],
+[data-aos="fade-left"],
 [data-aos="zoom-in"] {
-    transform: scale(0.8);
+    will-change: opacity;
 }
 
+[data-aos="fade-up"].aos-animate,
+[data-aos="fade-down"].aos-animate,
+[data-aos="fade-right"].aos-animate,
+[data-aos="fade-left"].aos-animate,
 [data-aos="zoom-in"].aos-animate {
-    transform: scale(1);
+    opacity: 1;
 }
 
 /* ===== QR CODE STYLING ===== */

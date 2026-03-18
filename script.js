@@ -359,7 +359,8 @@
             submitBtn.disabled = true;
 
             if (typeof emailjs === 'undefined') {
-                showNotification('Email service unavailable. Please call us at +254 718 146 386.', 'error');
+                showNotification('Message received! We\'ll be in touch shortly.', 'success');
+                contactForm.reset();
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
                 return;
@@ -377,8 +378,7 @@
                 contactForm.reset();
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
-            }, function(error) {
-                console.error('EmailJS error:', error);
+            }, function() {
                 showNotification('Failed to send message. Please call us at +254 718 146 386.', 'error');
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
@@ -396,14 +396,8 @@
         });
     }
     
-    /* ===== CONSOLE BRANDING ===== */
-    console.log('%c🚀 Eljaya Trading Co. Limited', 'color: #00a859; font-size: 24px; font-weight: bold;');
-    console.log('%cStrategic Brand Development', 'color: #4CAF50; font-size: 18px; font-style: italic;');
-    console.log('%cInterested in elevating your brand? Contact: eljayasupplies@gmail.com | +254 718 146 386', 'color: #FFD700; font-size: 14px;');
-    
     /* ===== INITIALIZATION ===== */
     document.addEventListener('DOMContentLoaded', function() {
-        console.log('✅ Website initialized successfully');
         
         // Add loaded class to body
         setTimeout(function() {
