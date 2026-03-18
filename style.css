@@ -963,12 +963,6 @@ body:not(.home) .site-header .menu-item-cta a { background: var(--color-primary)
     padding: 160px 0;
     position: relative;
     overflow: hidden;
-    animation: aboutBackgroundShift 20s ease-in-out infinite;
-}
-
-@keyframes aboutBackgroundShift {
-    0%, 100% { background-position: 0% 50%, 0% 0%, 100% 100%; }
-    50% { background-position: 100% 50%, 100% 0%, 0% 100%; }
 }
 
 .about-section::before {
@@ -2948,15 +2942,7 @@ body:not(.home) .site-header .menu-item-cta a { background: var(--color-primary)
     background:
         radial-gradient(ellipse at 20% 50%, rgba(255, 215, 0, 0.12) 0%, transparent 25%),
         radial-gradient(ellipse at 80% 50%, rgba(0, 168, 89, 0.15) 0%, transparent 30%),
-        radial-gradient(ellipse at 60% 80%, rgba(253, 181, 80, 0.08) 0%, transparent 20%),
-        linear-gradient(45deg, transparent 40%, rgba(255, 255, 255, 0.03) 45%, rgba(255, 255, 255, 0.03) 55%, transparent 60%);
-    background-size: 80px 80px, 100px 100px, 60px 60px, 120px 120px;
-    animation: movePattern 25s ease-in-out infinite, backgroundFade 15s ease-in-out infinite alternate;
-}
-
-@keyframes movePattern {
-    0% { background-position: 0 0; }
-    100% { background-position: 50px 50px; }
+        radial-gradient(ellipse at 60% 80%, rgba(253, 181, 80, 0.08) 0%, transparent 20%);
 }
 
 .cta-content {
