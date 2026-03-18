@@ -3510,7 +3510,7 @@ body:not(.home) .site-header .menu-item-cta a { background: var(--color-primary)
     font-size: 1.5rem;
 }
 
-.footer-brand h3 {
+.footer-brand h3, .footer-brand-name {
     font-size: 1.25rem;
     color: var(--color-white);
     margin: 0;
