@@ -359,7 +359,9 @@
             submitBtn.disabled = true;
 
             if (typeof emailjs === 'undefined') {
-                showNotification('Message received! We\'ll be in touch shortly.', 'success');
+                const msg = `Hello Eljaya Trading Co.,%0A%0AName: ${encodeURIComponent(data.name)}%0AEmail: ${encodeURIComponent(data.email)}%0APhone: ${encodeURIComponent(data.phone)}%0ACompany: ${encodeURIComponent(data.company || 'N/A')}%0AService: ${encodeURIComponent(data.service)}%0A%0AMessage:%0A${encodeURIComponent(data.message)}`;
+                window.open(`https://wa.me/254718146386?text=${msg}`, '_blank');
+                showNotification('Opening WhatsApp to send your message!', 'success');
                 contactForm.reset();
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;

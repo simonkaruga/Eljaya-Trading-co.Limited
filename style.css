@@ -2830,7 +2830,7 @@ body:not(.home) .site-header .menu-item-cta a { background: var(--color-primary)
 /* ===== 14. CTA SECTION - Spectacular Ultimate Enhancement ===== */
 /* ===== PAGE HERO BANNER (inner pages) ===== */
 .page-hero {
-    min-height: 340px;
+    min-height: clamp(280px, 40vh, 420px);
     display: flex;
     align-items: flex-end;
     padding: 0;
@@ -2844,7 +2844,7 @@ body:not(.home) .site-header .menu-item-cta a { background: var(--color-primary)
     inset: 0;
     background-size: cover;
     background-position: center;
-    opacity: 0.35;
+    opacity: 0.5;
     transform: scale(1.04);
     transition: transform 8s ease;
 }
