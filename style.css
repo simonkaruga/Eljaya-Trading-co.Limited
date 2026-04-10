@@ -274,7 +274,8 @@ p {
 .site-header.scrolled .menu-item a.active { color: var(--color-primary); }
 .site-header.scrolled .menu-item a::after { background: var(--color-primary); }
 .site-header.scrolled .menu-icon { background: var(--color-dark); }
-.site-header.scrolled .menu-item-cta a { background: var(--color-primary); color: var(--color-white); }
+.site-header.scrolled .menu-item-cta a { border: 2px solid var(--color-primary); color: var(--color-primary); background: transparent; }
+.site-header.scrolled .menu-item-cta a:hover { background: var(--color-primary); color: var(--color-white); }
 
 /* Nav text: white on transparent, dark on scrolled */
 .site-header:not(.scrolled) .site-title {
@@ -292,9 +293,14 @@ p {
 .site-header:not(.scrolled) .menu-item a::after { background: var(--color-accent); }
 .site-header:not(.scrolled) .menu-icon { background: var(--color-white); }
 .site-header:not(.scrolled) .menu-item-cta a {
-    background: var(--color-accent);
-    color: var(--color-dark);
+    border: 2px solid var(--color-white);
+    color: var(--color-white);
+    background: transparent;
     text-shadow: none;
+}
+.site-header:not(.scrolled) .menu-item-cta a:hover {
+    background: var(--color-white);
+    color: var(--color-dark);
 }
 
 /* Inner pages: always white nav with dark text */
@@ -312,7 +318,8 @@ body:not(.home) .site-header .menu-item a:hover,
 body:not(.home) .site-header .menu-item a.active { color: var(--color-primary); }
 body:not(.home) .site-header .menu-item a::after { background: var(--color-primary); }
 body:not(.home) .site-header .menu-icon { background: var(--color-dark); }
-body:not(.home) .site-header .menu-item-cta a { background: var(--color-primary); color: var(--color-white); }
+body:not(.home) .site-header .menu-item-cta a { border: 2px solid var(--color-primary); color: var(--color-primary); background: transparent; }
+body:not(.home) .site-header .menu-item-cta a:hover { background: var(--color-primary); color: var(--color-white); }
 
 .header-container {
     display: flex;
@@ -444,19 +451,17 @@ body:not(.home) .site-header .menu-item-cta a { background: var(--color-primary)
 }
 
 .menu-item-cta a {
-    background: var(--color-primary);
-    color: var(--color-white);
+    color: var(--color-primary);
     padding: var(--spacing-sm) var(--spacing-lg);
     border-radius: var(--radius-sm);
     font-weight: var(--font-weight-semibold);
-    box-shadow: 0 2px 8px rgba(0,168,89,0.2);
+    border: 2px solid var(--color-primary);
     transition: var(--transition);
 }
 
 .menu-item-cta a:hover {
-    background: var(--color-primary-dark);
-    box-shadow: 0 4px 12px rgba(0,168,89,0.3);
-    transform: translateY(-2px);
+    background: var(--color-primary);
+    color: var(--color-white);
 }
 
 .menu-toggle {
