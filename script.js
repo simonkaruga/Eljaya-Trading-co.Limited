@@ -18,19 +18,24 @@
     /* ===== HEADER SCROLL EFFECT ===== */
     const header = document.querySelector('.site-header');
     let lastScroll = 0;
-    
+
+    // On inner pages, always show white nav immediately
+    if (!document.body.classList.contains('home')) {
+        header.classList.add('scrolled');
+    }
+
     window.addEventListener('scroll', function() {
         const currentScroll = window.pageYOffset;
-        
-        if (currentScroll > 100) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
+        if (document.body.classList.contains('home')) {
+            if (currentScroll > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
         }
-        
         lastScroll = currentScroll;
     });
-    
+
     /* ===== MOBILE MENU TOGGLE ===== */
     const menuToggle = document.getElementById('menu-toggle');
     const mainNav = document.getElementById('site-navigation');

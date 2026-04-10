@@ -304,22 +304,7 @@ p {
 }
 
 /* Inner pages: always white nav with dark text */
-.page-header .site-header,
-body:not(.home) .site-header {
-    background: var(--color-white);
-    border-bottom: 1px solid var(--color-border);
-    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-}
-
-body:not(.home) .site-header .site-title { color: var(--color-dark); text-shadow: none; }
-body:not(.home) .site-header .site-tagline { color: var(--color-primary); }
-body:not(.home) .site-header .menu-item a { color: var(--color-dark); text-shadow: none; font-weight: var(--font-weight-medium); }
-body:not(.home) .site-header .menu-item a:hover,
-body:not(.home) .site-header .menu-item a.active { color: var(--color-primary); }
-body:not(.home) .site-header .menu-item a::after { background: var(--color-primary); }
-body:not(.home) .site-header .menu-icon { background: var(--color-dark); }
-body:not(.home) .site-header .menu-item-cta a { border: 2px solid var(--color-primary); color: var(--color-primary); background: transparent; }
-body:not(.home) .site-header .menu-item-cta a:hover { background: var(--color-primary); color: var(--color-white); }
+/* Inner pages handled via JS scrolled class */
 
 .header-container {
     display: flex;
