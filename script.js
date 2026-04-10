@@ -39,12 +39,10 @@
         menuToggle.addEventListener('click', function() {
             mainNav.classList.toggle('active');
             menuToggle.classList.toggle('active');
-            
             const isExpanded = mainNav.classList.contains('active');
             menuToggle.setAttribute('aria-expanded', isExpanded);
         });
-        
-        // Close menu when clicking outside
+
         document.addEventListener('click', function(e) {
             if (!mainNav.contains(e.target) && !menuToggle.contains(e.target)) {
                 mainNav.classList.remove('active');
@@ -52,15 +50,24 @@
                 menuToggle.setAttribute('aria-expanded', 'false');
             }
         });
-        
-        // Close menu on link click
+
         const menuLinks = mainNav.querySelectorAll('.menu-item a');
         menuLinks.forEach(function(link) {
             link.addEventListener('click', function() {
+                if (window.innerWidth <= 768) {
+                    mainNav.classList.remove('active');
+                    menuToggle.classList.remove('active');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+        });
+
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
                 mainNav.classList.remove('active');
                 menuToggle.classList.remove('active');
                 menuToggle.setAttribute('aria-expanded', 'false');
-            });
+            }
         });
     }
     
