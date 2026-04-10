@@ -4061,3 +4061,21 @@ p {
 }
 
 /* ===== END OF STYLESHEET ===== */
+
+/* ===== DESKTOP NAV HARD LOCK ===== */
+@media (min-width: 769px) {
+    .main-navigation {
+        position: static !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        top: auto !important;
+    }
+    .main-navigation .menu {
+        display: flex !important;
+        flex-direction: row !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+}

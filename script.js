@@ -39,40 +39,37 @@
     /* ===== MOBILE MENU TOGGLE ===== */
     const menuToggle = document.getElementById('menu-toggle');
     const mainNav = document.getElementById('site-navigation');
-    
+
+    function closeMenu() {
+        mainNav.classList.remove('active');
+        menuToggle.classList.remove('active');
+        menuToggle.setAttribute('aria-expanded', 'false');
+    }
+
     if (menuToggle && mainNav) {
-        menuToggle.addEventListener('click', function() {
+        menuToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            if (window.innerWidth > 768) return;
             mainNav.classList.toggle('active');
             menuToggle.classList.toggle('active');
-            const isExpanded = mainNav.classList.contains('active');
-            menuToggle.setAttribute('aria-expanded', isExpanded);
+            menuToggle.setAttribute('aria-expanded', mainNav.classList.contains('active'));
         });
 
         document.addEventListener('click', function(e) {
+            if (window.innerWidth > 768) return;
             if (!mainNav.contains(e.target) && !menuToggle.contains(e.target)) {
-                mainNav.classList.remove('active');
-                menuToggle.classList.remove('active');
-                menuToggle.setAttribute('aria-expanded', 'false');
+                closeMenu();
             }
         });
 
-        const menuLinks = mainNav.querySelectorAll('.menu-item a');
-        menuLinks.forEach(function(link) {
+        mainNav.querySelectorAll('.menu-item a').forEach(function(link) {
             link.addEventListener('click', function() {
-                if (window.innerWidth <= 768) {
-                    mainNav.classList.remove('active');
-                    menuToggle.classList.remove('active');
-                    menuToggle.setAttribute('aria-expanded', 'false');
-                }
+                if (window.innerWidth <= 768) closeMenu();
             });
         });
 
         window.addEventListener('resize', function() {
-            if (window.innerWidth > 768) {
-                mainNav.classList.remove('active');
-                menuToggle.classList.remove('active');
-                menuToggle.setAttribute('aria-expanded', 'false');
-            }
+            if (window.innerWidth > 768) closeMenu();
         });
     }
     
