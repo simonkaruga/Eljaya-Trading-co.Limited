@@ -421,3 +421,9 @@
 /* ===== END OF SCRIPT ===== */
 
 /* ===== END OF SCRIPT ===== */
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js');
+  });
+}
