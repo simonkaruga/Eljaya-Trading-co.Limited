@@ -8,6 +8,7 @@ import { ServiceList } from '@/components/home/ServiceList';
 import { IndustryScroller } from '@/components/home/IndustryScroller';
 import { ProcessSteps } from '@/components/home/ProcessSteps';
 import { Testimonials } from '@/components/home/Testimonials';
+import { PhotoStrip } from '@/components/home/PhotoStrip';
 import { Marquee } from '@/components/Marquee';
 import { Counter } from '@/components/Counter';
 import { SectionHeading } from '@/components/SectionHeading';
@@ -83,6 +84,20 @@ export default async function HomePage() {
         </SectionHeading>
         <ServiceList services={shownServices} />
       </section>
+
+      {/* Photo strip */}
+      {home.showcase.length >= 4 && (
+        <section className="pb-24 lg:pb-32" aria-label="Gallery">
+          <div className="container-x mb-10 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+            <Reveal>
+              <p className="eyebrow">In the making</p>
+              <h2 className="mt-4 text-4xl leading-[1.05] sm:text-5xl">From thread to <em className="font-light text-leaf">finished brand.</em></h2>
+            </Reveal>
+            <Reveal delay={0.1}><p className="max-w-sm text-ink-2">Apparel, drinkware, stationery and packaging, printed, stitched and checked before it reaches you.</p></Reveal>
+          </div>
+          <PhotoStrip images={home.showcase} />
+        </section>
+      )}
 
       {/* Industries */}
       {industries.length > 0 && (

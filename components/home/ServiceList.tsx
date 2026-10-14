@@ -6,10 +6,12 @@ import { AnimatePresence, motion, useMotionValue, useSpring } from 'motion/react
 import { ArrowUpRight } from 'lucide-react';
 import type { Service } from '@/lib/types';
 import { SmartImage } from '../SmartImage';
+import { Reveal } from '../Reveal';
 
 /**
- * Editorial service index: on desktop, hovering a row floats that service's
- * photo beside the cursor. On touch screens it becomes a swipeable card rail.
+ * Editorial service index. Desktop: each row shows its photo, and hovering
+ * floats a larger version beside the cursor. Phones/tablets: a two-column
+ * grid of photo cards so every product is visible at a glance.
  */
 export function ServiceList({ services }: { services: Service[] }) {
   const [active, setActive] = useState<number | null>(null);
@@ -17,6 +19,7 @@ export function ServiceList({ services }: { services: Service[] }) {
   const y = useMotionValue(0);
   const sx = useSpring(x, { stiffness: 260, damping: 30, mass: 0.6 });
   const sy = useSpring(y, { stiffness: 260, damping: 30, mass: 0.6 });
+  const dim = (i: number) => active !== null && active !== i;
 
   return (
     <>
@@ -33,15 +36,18 @@ export function ServiceList({ services }: { services: Service[] }) {
         <ul className="border-t border-line">
           {services.map((s, i) => (
             <li key={s._id} onMouseEnter={() => setActive(i)} className="border-b border-line">
-              <Link href={`/services/${s.slug}`} className="group grid grid-cols-12 items-center gap-6 py-7">
+              <Link href={`/services/${s.slug}`} className="group grid grid-cols-12 items-center gap-6 py-5">
                 <span className="col-span-1 text-sm font-medium text-muted">{String(i + 1).padStart(2, '0')}</span>
-                <h3 className={`col-span-6 text-[2.1rem] leading-tight transition-all duration-500 ease-out-expo ${active === null || active === i ? 'text-ink' : 'text-ink/25'} group-hover:translate-x-3`}>
+                <span className={`relative col-span-2 aspect-[4/3] overflow-hidden rounded-xl bg-sand transition-opacity duration-500 ${dim(i) ? 'opacity-40' : ''}`}>
+                  <SmartImage image={s.image} fill sizes="200px" className="object-cover transition-transform duration-700 ease-out-expo group-hover:scale-110" />
+                </span>
+                <h3 className={`col-span-4 text-[1.9rem] leading-tight transition-all duration-500 ease-out-expo group-hover:translate-x-2 ${dim(i) ? 'text-ink/25' : 'text-ink'}`}>
                   {s.title}
                 </h3>
-                <p className={`col-span-3 text-sm leading-relaxed transition-colors duration-500 ${active === null || active === i ? 'text-ink-2' : 'text-ink/25'}`}>{s.excerpt}</p>
+                <p className={`col-span-3 text-sm leading-relaxed transition-colors duration-500 ${dim(i) ? 'text-ink/25' : 'text-ink-2'}`}>{s.excerpt}</p>
                 <span className="col-span-2 flex items-center justify-end gap-4">
-                  {s.priceFrom && <span className="text-sm font-semibold text-leaf">from {s.priceFrom.replace(/^from\s*/i, '')}</span>}
-                  <span className="grid size-11 place-items-center rounded-full border border-line transition-all duration-500 group-hover:rotate-45 group-hover:border-ink group-hover:bg-ink group-hover:text-paper">
+                  {s.priceFrom && <span className="text-sm font-semibold text-leaf">from {s.priceFrom}</span>}
+                  <span className="grid size-11 shrink-0 place-items-center rounded-full border border-line transition-all duration-500 group-hover:rotate-45 group-hover:border-ink group-hover:bg-ink group-hover:text-paper">
                     <ArrowUpRight className="size-5" />
                   </span>
                 </span>
@@ -59,11 +65,11 @@ export function ServiceList({ services }: { services: Service[] }) {
                 animate={{ opacity: 1, scale: 1, rotate: -3 }}
                 exit={{ opacity: 0, scale: 0.6 }}
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                className="relative -ml-36 -mt-48 h-[22rem] w-72 overflow-hidden rounded-2xl shadow-2xl shadow-forest/30"
+                className="relative ml-8 -mt-40 h-80 w-64 overflow-hidden rounded-2xl shadow-2xl shadow-forest/30"
               >
                 {services.map((s, i) => (
                   <motion.div key={s._id} className="absolute inset-0" animate={{ opacity: active === i ? 1 : 0, scale: active === i ? 1 : 1.15 }} transition={{ duration: 0.5 }}>
-                    <SmartImage image={s.image} fill sizes="288px" className="object-cover" />
+                    <SmartImage image={s.image} fill sizes="256px" className="object-cover" />
                   </motion.div>
                 ))}
               </motion.div>
@@ -72,20 +78,26 @@ export function ServiceList({ services }: { services: Service[] }) {
         </motion.div>
       </div>
 
-      {/* Mobile / tablet */}
-      <ul className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 [scrollbar-width:none] sm:-mx-8 sm:px-8 lg:hidden">
+      {/* Phones & tablets */}
+      <ul className="grid grid-cols-2 gap-x-3 gap-y-8 sm:grid-cols-3 sm:gap-x-5 lg:hidden">
         {services.map((s, i) => (
-          <li key={s._id} className="w-[78%] shrink-0 snap-start sm:w-[45%]">
+          <Reveal as="li" key={s._id} delay={(i % 2) * 0.06}>
             <Link href={`/services/${s.slug}`} className="group block">
               <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-sand">
-                <SmartImage image={s.image} fill sizes="(max-width:640px) 80vw, 45vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
-                <span className="absolute left-4 top-4 rounded-full bg-paper/90 px-3 py-1 text-xs font-semibold backdrop-blur">{String(i + 1).padStart(2, '0')}</span>
-                {s.priceFrom && <span className="absolute bottom-4 left-4 rounded-full bg-lime px-3 py-1 text-xs font-bold text-forest">from {s.priceFrom}</span>}
+                <SmartImage image={s.image} fill sizes="(max-width:640px) 50vw, 33vw" className="object-cover transition-transform duration-700 group-active:scale-105" />
+                <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-forest/60 to-transparent" />
+                <span className="absolute left-2.5 top-2.5 rounded-full bg-paper/90 px-2 py-0.5 text-[0.7rem] font-semibold backdrop-blur">{String(i + 1).padStart(2, '0')}</span>
+                {s.priceFrom && (
+                  <span className="absolute bottom-2.5 left-2.5 rounded-full bg-lime px-2.5 py-1 text-[0.7rem] font-bold text-forest">from {s.priceFrom}</span>
+                )}
+                <span className="absolute bottom-2.5 right-2.5 grid size-8 place-items-center rounded-full bg-paper text-ink">
+                  <ArrowUpRight className="size-4" />
+                </span>
               </div>
-              <h3 className="mt-4 text-2xl leading-tight">{s.title}</h3>
-              <p className="mt-2 text-sm text-ink-2">{s.excerpt}</p>
+              <h3 className="mt-3 text-lg leading-snug sm:text-xl">{s.title}</h3>
+              <p className="mt-1 line-clamp-2 text-[0.8rem] leading-relaxed text-ink-2 sm:text-sm">{s.excerpt}</p>
             </Link>
-          </li>
+          </Reveal>
         ))}
       </ul>
     </>

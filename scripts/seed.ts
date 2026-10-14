@@ -65,7 +65,7 @@ async function build() {
   docs.push({
     _id: 'homePage', _type: 'homePage',
     heroSlides: await Promise.all(h.heroSlides.map(async (sl, i) => ({ _key: `s${i}`, _type: 'slide', eyebrow: sl.eyebrow, heading: sl.heading, text: sl.text, image: await image(sl.image) }))),
-    marquee: h.marquee, introHeading: h.introHeading, introText: h.introText,
+    marquee: h.marquee, showcase: await gallery(h.showcase), introHeading: h.introHeading, introText: h.introText,
     ecoHeading: h.ecoHeading, ecoText: h.ecoText, ecoImage: await image(h.ecoImage), ecoPoints: h.ecoPoints,
     ctaHeading: h.ctaHeading, ctaText: h.ctaText,
   });

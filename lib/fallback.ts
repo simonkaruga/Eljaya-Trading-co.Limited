@@ -37,6 +37,45 @@ const I = {
   ngo: img('non-profit-ngos.webp', 'NGO eco-friendly branded merchandise', 1024, 1024),
 };
 
+const stock = (name: keyof typeof STOCK) => img(`stock/${name}.webp`, STOCK[name][2], STOCK[name][0], STOCK[name][1]);
+const STOCK = {
+  'tees-folded': [1024, 683, "Stack of folded cotton T-shirts in assorted colours"],
+  'tees-fan': [1024, 683, "Folded T-shirts fanned out in brand colours"],
+  'tees-hangers': [1024, 683, "Plain T-shirts on wooden hangers ready for printing"],
+  'tees-stack': [1024, 683, "Folded T-shirts in layered colours"],
+  'rack-hangers': [1024, 684, "Garments on a clothing rail"],
+  'rack-shop': [960, 640, "Rail of shirts and jackets in a boutique"],
+  'tailor': [2000, 1250, "Tailor stitching fabric on a sewing machine"],
+  'tailor-street': [2000, 1456, "Tailor working at a treadle sewing machine"],
+  'threads-jar': [1024, 768, "Colourful embroidery thread spools in a glass jar"],
+  'threads-rainbow': [1024, 768, "Rainbow of embroidery threads"],
+  'threads-pile': [1024, 683, "Pile of colourful thread spools"],
+  'fabric-rolls': [2000, 1503, "Rolls of printed fabric"],
+  'hats': [1024, 683, "Assorted hats and caps on display"],
+  'pens': [1024, 685, "Pot of colourful pens and highlighters"],
+  'markers': [1024, 683, "Tins of colourful markers"],
+  'stationery-flatlay': [960, 640, "Notepad, pencil and stationery flat lay"],
+  'notebook-coffee': [1920, 1280, "Notebook and pen beside a cup of coffee"],
+  'notebook-vintage': [960, 720, "Open notebook with pencil on a desk"],
+  'mug-enamel': [2000, 1333, "Printed enamel coffee mug"],
+  'mug-white': [2000, 1333, "White ceramic mug on a café table"],
+  'mug-zigzag': [2000, 1333, "Patterned ceramic mug on a woven placemat"],
+  'mug-hand': [960, 636, "Hand holding a printed enamel mug"],
+  'bottles-steel': [1920, 1288, "Stainless steel and glass water bottles"],
+  'bottles-sport': [2000, 2000, "Reusable sports water bottles"],
+  'hivis-team': [1600, 1067, "Team in high-visibility safety vests"],
+  'hivis-runner': [2000, 1333, "Runner wearing a reflective safety vest"],
+  'giftbox-black': [960, 640, "Black gift box with gold bow"],
+  'kraft-bags': [1200, 1800, "Row of kraft paper carrier bags"],
+  'cards-blue': [2000, 1604, "Printed business cards"],
+  'banners-1': [2000, 1125, "Printed exhibition roll-up banners"],
+  'banners-2': [2000, 1125, "Exhibition display banners in brand colours"],
+  'sewing-1': [2000, 1333, "Machinist stitching on an industrial sewing machine"],
+  'sewing-2': [2000, 1333, "Production team at work in a sewing workshop"],
+  'sewing-4': [2000, 1289, "Machinist finishing a product on an industrial machine"],
+  'burlap': [1024, 536, "Close-up of natural jute fabric"],
+} as const;
+
 export const settings: Settings = {
   name: 'Eljaya Trading Co.',
   tagline: 'Eco friendly at its peak',
@@ -86,10 +125,16 @@ export const home: Home = {
       text: 'Jute, kraft and canvas alternatives to single-use plastic, printed with your logo in up to four colours.',
     },
     {
-      image: I.hospitality,
-      eyebrow: 'Hospitality · Healthcare · Education',
-      heading: 'Uniforms & essentials for every touchpoint',
-      text: 'From laundry bags to staff uniforms, we brand the details guests and clients actually notice.',
+      image: stock('sewing-1'),
+      eyebrow: 'Apparel · Uniforms · Bags',
+      heading: 'Skilled hands, careful finishing',
+      text: 'Screen printing, embroidery and stitching with quality checks at every stage, so every piece carries your brand properly.',
+    },
+    {
+      image: stock('bottles-steel'),
+      eyebrow: 'Corporate gifting',
+      heading: 'Gifts your clients actually keep',
+      text: 'Branded bottles, mugs, notebooks and gift sets that sit on desks for years, not drawers.',
     },
   ],
   marquee: [
@@ -102,12 +147,17 @@ export const home: Home = {
   ecoHeading: 'Better for your brand. Better for Kenya.',
   ecoText:
     'Kenya’s plastic regulations and customers’ expectations are changing fast. We help brands make the switch with biodegradable jute, kraft and recycled materials that look premium and get reused for months.',
-  ecoImage: I.jute,
+  ecoImage: stock('kraft-bags'),
   ecoPoints: [
     '100% biodegradable jute & canvas options',
     'Recycled-paper notebooks & kraft packaging',
     'Reusable bags that become walking advertising',
     'Phased switch plans that fit your budget',
+  ],
+  showcase: [
+    stock('tees-hangers'), I.jute, stock('mug-zigzag'), I.caps, stock('threads-jar'), stock('notebook-coffee'), I.gift,
+    stock('bottles-steel'), stock('sewing-2'), I.reflectors, stock('kraft-bags'), stock('tees-folded'), I.banners,
+    stock('fabric-rolls'), I.notebooks, stock('cards-blue'), stock('hivis-team'), I.polo, stock('threads-rainbow'), stock('mug-enamel'),
   ],
   ctaHeading: 'Let’s make something your customers will keep.',
   ctaText: 'Tell us what you need, how many and when. We’ll send a detailed quote within 24 hours, with no obligation.',
@@ -117,8 +167,8 @@ export const about: About = {
   heading: 'We build brands people can hold.',
   intro:
     'Eljaya Trading Co. Limited is a Nairobi branding company helping businesses build powerful, recognisable brands through custom merchandise, corporate apparel and eco-friendly packaging.',
-  image: I.hero,
-  secondaryImage: I.notebooks,
+  image: stock('sewing-2'),
+  secondaryImage: stock('threads-rainbow'),
   story: md(`
 Since 2015, Eljaya Trading Co. has been changing how Kenyan businesses approach brand development. We believe powerful branding isn’t just about a logo. It’s about consistent, memorable experiences at every touchpoint your customers meet.
 
@@ -149,7 +199,7 @@ export const services: Service[] = [
     title: 'Corporate Apparel & Branded T-Shirts',
     excerpt: 'Polo shirts, T-shirts, hoodies and uniforms, screen-printed or embroidered in-house.',
     description: 'We brand polo shirts, T-shirts, hoodies and uniforms for businesses across Nairobi, from 20-piece startup orders to 500+ piece corporate rollouts. All apparel is screen-printed or embroidered in-house using premium 220–240 GSM cotton and poly-cotton blends that hold colour after repeated washing, ideal for hospitality and healthcare teams.',
-    image: I.polo, turnaround: '7–10 business days', minOrder: '20 pieces', priceFrom: 'KSh 650',
+    image: I.polo, gallery: [stock('tees-hangers'), stock('tees-folded'), stock('tees-stack'), stock('sewing-1'), stock('threads-rainbow'), stock('rack-hangers')], turnaround: '7–10 business days', minOrder: '20 pieces', priceFrom: 'KSh 650',
     popularWith: 'Corporates, schools, NGOs, hospitality',
     features: ['220–240 GSM cotton & poly-cotton blends', 'Screen printing & embroidery', 'All sizes including plus sizes', 'Sample provided before bulk production'],
   },
@@ -158,7 +208,7 @@ export const services: Service[] = [
     title: 'Branded Water Bottles, Flasks & Mugs',
     excerpt: 'Stainless steel, aluminium and BPA-free bottles, printed or laser-engraved.',
     description: 'Custom branded water bottles and vacuum flasks for corporate gifting, events and staff use across Kenya. Available in 350ml, 500ml and 750ml capacities in stainless steel, aluminium and BPA-free plastic. Your logo is printed or laser-engraved for a premium finish that lasts.',
-    image: I.bottles, gallery: [I.mug], turnaround: '5–7 business days', minOrder: '25 pieces', priceFrom: 'KSh 450',
+    image: I.bottles, gallery: [stock('bottles-steel'), stock('bottles-sport'), I.mug, stock('mug-zigzag'), stock('mug-enamel'), stock('mug-white')], turnaround: '5–7 business days', minOrder: '25 pieces', priceFrom: 'KSh 450',
     popularWith: 'Corporate events, staff gifts, schools',
     features: ['BPA-free & food-safe materials', '350ml, 500ml & 750ml options', 'Insulated stainless steel available', 'Print or laser engraving'],
   },
@@ -167,7 +217,7 @@ export const services: Service[] = [
     title: 'Branded Caps & Headwear',
     excerpt: 'Baseball caps, bucket hats and beanies with embroidered or printed logos.',
     description: 'Custom branded caps, bucket hats and beanies for corporate teams, schools, sports clubs and promotional events in Nairobi. Available in structured and unstructured styles with embroidered or printed logos, in adjustable one-size-fits-most designs.',
-    image: I.caps, turnaround: '7–10 business days', minOrder: '24 pieces', priceFrom: 'KSh 550',
+    image: I.caps, gallery: [stock('hats'), stock('threads-jar'), stock('threads-pile')], turnaround: '7–10 business days', minOrder: '24 pieces', priceFrom: 'KSh 550',
     popularWith: 'Corporates, sports clubs, schools, events',
     features: ['Baseball caps, bucket hats & beanies', 'Embroidery & print options', 'Adjustable one-size-fits-most', 'Wide colour range'],
   },
@@ -176,7 +226,7 @@ export const services: Service[] = [
     title: 'Branded Safety Reflectors',
     excerpt: 'Wristband, clip-on and keyring reflectors for road-safety campaigns.',
     description: 'Custom branded safety reflectors for road safety campaigns, NGO distributions, schools and community programmes across Kenya. Available in wristband, clip-on and keyring styles with your logo or message printed clearly.',
-    image: I.reflectors, turnaround: '5–7 business days', minOrder: '100 pieces', priceFrom: 'KSh 120',
+    image: I.reflectors, gallery: [stock('hivis-team'), stock('hivis-runner')], turnaround: '5–7 business days', minOrder: '100 pieces', priceFrom: 'KSh 120',
     popularWith: 'NGOs, schools, government, corporates',
     features: ['Wristband, clip-on & keyring styles', 'High-visibility certified materials', 'Custom logo & message printing', 'Bulk pricing for large campaigns'],
   },
@@ -185,7 +235,7 @@ export const services: Service[] = [
     title: 'Corporate Notebooks & Stationery',
     excerpt: 'A4 & A5 notebooks, diaries and pen sets, embossed or printed with your logo.',
     description: 'Custom branded notebooks, pens, diaries and desk accessories for corporate gifting, staff onboarding and conference packs. Notebooks come in A4 and A5 with hardcover or softcover binding, plain or ruled pages, and your logo embossed or printed on the cover.',
-    image: I.notebooks, turnaround: '7–10 business days', minOrder: '25 pieces',
+    image: I.notebooks, gallery: [stock('notebook-coffee'), stock('pens'), stock('markers'), stock('stationery-flatlay'), stock('notebook-vintage')], turnaround: '7–10 business days', minOrder: '25 pieces',
     popularWith: 'Corporates, conferences, staff gifting',
     features: ['A4 & A5 hardcover & softcover', 'Embossed or printed cover branding', 'Recycled-paper options', 'Matching pen sets available'],
   },
@@ -194,7 +244,7 @@ export const services: Service[] = [
     title: 'Jute & Eco Bags',
     excerpt: 'Jute, canvas and non-woven reusable bags, the alternative to single-use plastic.',
     description: 'Custom printed jute bags, canvas totes and non-woven reusable bags for retail, events and corporate gifting across Kenya. Popular with supermarkets, boutiques, NGOs and eco-conscious brands, and printed with your logo in up to four colours.',
-    image: I.jute, turnaround: '7–10 business days', minOrder: '50 pieces', priceFrom: 'KSh 280',
+    image: I.jute, gallery: [stock('burlap'), stock('kraft-bags'), I.gift], turnaround: '7–10 business days', minOrder: '50 pieces', priceFrom: 'KSh 280',
     popularWith: 'Retail, NGOs, events, corporate gifting',
     features: ['Jute, canvas & non-woven options', '100% biodegradable materials', 'Up to 4-colour logo printing', 'Bulk discounts from 100 pieces'],
   },
@@ -203,7 +253,7 @@ export const services: Service[] = [
     title: 'Custom Branded Packaging',
     excerpt: 'Boxes, gift bags, tissue and mailers that make unboxing memorable.',
     description: 'Custom packaging boxes, gift bags, tissue paper and mailer bags for retail, e-commerce and corporate gifting. We design and produce packaging that matches your brand colours and creates a memorable unboxing experience, which matters for repeat purchases and social sharing.',
-    image: I.gift, turnaround: '7–14 business days', minOrder: '50 pieces',
+    image: I.gift, gallery: [stock('kraft-bags'), stock('giftbox-black'), I.jute], turnaround: '7–14 business days', minOrder: '50 pieces',
     popularWith: 'E-commerce, retail, corporate gifting',
     features: ['Boxes, bags, tissue & mailers', 'Full-colour custom printing', 'Eco-friendly material options', 'OEM & white-label available'],
   },
@@ -212,7 +262,7 @@ export const services: Service[] = [
     title: 'Laundry Bag Manufacturing',
     excerpt: 'Custom laundry bags for hotels, hospitals and schools, with OEM available.',
     description: 'We manufacture custom laundry bags for hotels, hospitals, schools and laundry service providers across Kenya. Produced in polypropylene, cotton canvas or nylon in any size, with your branding stitched or printed on. OEM manufacturing is available for businesses that want bags under their own brand.',
-    image: I.laundry, gallery: [I.laundryMfg], turnaround: '10–14 business days', minOrder: '100 pieces',
+    image: I.laundry, gallery: [I.laundryMfg, stock('sewing-2'), stock('sewing-4'), stock('tailor')], turnaround: '10–14 business days', minOrder: '100 pieces',
     popularWith: 'Hotels, hospitals, schools, laundry services',
     features: ['Polypropylene, canvas & nylon', 'Custom sizes & drawstring styles', 'OEM manufacturing available', 'Bulk production with QA checks'],
   },
@@ -221,7 +271,7 @@ export const services: Service[] = [
     title: 'Banners & Signage',
     excerpt: 'Pull-up banners, backdrops, teardrop flags and outdoor signage.',
     description: 'We print pull-up banners, backdrop banners, teardrop flags and outdoor signage for events, exhibitions, retail and offices. Printed on 440gsm PVC or fabric with UV-resistant inks that stay vivid outdoors, in standard sizes or fully custom dimensions, with hardware supplied.',
-    image: I.banners, turnaround: '2–4 business days', minOrder: '1 piece', priceFrom: 'KSh 1,800',
+    image: I.banners, gallery: [stock('banners-1'), stock('banners-2')], turnaround: '2–4 business days', minOrder: '1 piece', priceFrom: 'KSh 1,800',
     popularWith: 'Events, exhibitions, retail, NGOs',
     features: ['440gsm PVC & fabric options', 'UV-resistant outdoor inks', 'Custom dimensions available', 'Mounting hardware included'],
   },
@@ -230,33 +280,33 @@ export const services: Service[] = [
     title: 'Brand Identity & Print Collateral',
     excerpt: 'Logo design, brand guidelines, brochures, flyers and business cards.',
     description: 'We help businesses define a cohesive visual identity, then carry it into print: brochures, flyers, business cards and marketing materials on premium 300–350gsm coated stock with gloss or matte lamination. Ideal for trade shows, sales teams and product launches.',
-    image: I.brochures, turnaround: '3–5 business days', minOrder: '50 pieces',
+    image: I.brochures, gallery: [stock('cards-blue'), stock('markers'), stock('stationery-flatlay')], turnaround: '3–5 business days', minOrder: '50 pieces',
     popularWith: 'Sales teams, trade shows, product launches',
     features: ['Logo & brand identity design', '300–350gsm coated stock', 'Gloss & matte lamination', 'Same-day proofs on request'],
   },
 ];
 
 export const industries: Industry[] = [
-  { _id: 'ind-corporate', title: 'Corporate & Finance', stat: '120+ clients', image: img('hero-corporate.webp', 'Corporate branded merchandise', 676, 676), description: 'Polo shirts, notebooks and stationery that build trust and credibility in B2B markets.' },
-  { _id: 'ind-retail', title: 'Retail & E-commerce', stat: '80+ brands', image: img('hero-retail.webp', 'Retail branded packaging', 676, 676), description: 'Custom packaging and branded bags that elevate unboxing and customer experience.' },
-  { _id: 'ind-hospitality', title: 'Hospitality & Tourism', stat: '50+ properties', image: img('hero-hospitality.webp', 'Hospitality branded essentials', 676, 676), description: 'Laundry bags, uniforms and brand touchpoints that create memorable guest experiences.' },
-  { _id: 'ind-healthcare', title: 'Healthcare & Wellness', stat: '40+ facilities', image: img('hero-healthcare.webp', 'Healthcare branded materials', 676, 676), description: 'Reflectors, uniforms and hygienic branded materials for medical and wellness facilities.' },
-  { _id: 'ind-education', title: 'Education', stat: '60+ schools', image: img('hero-education.webp', 'School branded merchandise', 676, 676), description: 'Caps, uniforms and stationery that foster institutional pride and identity.' },
-  { _id: 'ind-ngo', title: 'Non-Profit & NGOs', stat: '45+ organisations', image: img('hero-nonprofit.webp', 'NGO eco merchandise', 676, 676), description: 'Eco-friendly jute bags and sustainable merchandise aligned with mission and community.' },
+  { _id: 'ind-corporate', title: 'Corporate & Finance', stat: '120+ clients', image: stock('notebook-coffee'), description: 'Polo shirts, notebooks and stationery that build trust and credibility in B2B markets.' },
+  { _id: 'ind-retail', title: 'Retail & E-commerce', stat: '80+ brands', image: stock('kraft-bags'), description: 'Custom packaging and branded bags that elevate unboxing and customer experience.' },
+  { _id: 'ind-hospitality', title: 'Hospitality & Tourism', stat: '50+ properties', image: stock('mug-white'), description: 'Laundry bags, uniforms and brand touchpoints that create memorable guest experiences.' },
+  { _id: 'ind-healthcare', title: 'Healthcare & Wellness', stat: '40+ facilities', image: stock('hivis-runner'), description: 'Reflectors, uniforms and hygienic branded materials for medical and wellness facilities.' },
+  { _id: 'ind-education', title: 'Education', stat: '60+ schools', image: stock('markers'), description: 'Caps, uniforms and stationery that foster institutional pride and identity.' },
+  { _id: 'ind-ngo', title: 'Non-Profit & NGOs', stat: '45+ organisations', image: stock('hivis-team'), description: 'Eco-friendly jute bags and sustainable merchandise aligned with mission and community.' },
 ];
 
 export const projects: Project[] = [
-  { _id: 'prj-corporate', slug: 'corporate-onboarding-kit', featured: true, title: 'Corporate onboarding kit', industry: 'Corporate & Finance', year: '2026', cover: I.corporate, gallery: [I.notebooks, I.polo, I.bottles], tags: ['Apparel', 'Stationery', 'Drinkware'], excerpt: 'A complete welcome pack of branded polos, notebooks and bottles that new hires actually use.' },
-  { _id: 'prj-retail', slug: 'retail-eco-packaging', featured: true, title: 'Retail eco-packaging switch', industry: 'Retail & E-commerce', year: '2026', cover: I.retail, gallery: [I.gift, I.jute], tags: ['Packaging', 'Jute bags'], excerpt: 'Branded kraft boxes, gift bags and jute totes replacing single-use plastic at checkout.' },
-  { _id: 'prj-hospitality', slug: 'hospitality-guest-collection', featured: true, title: 'Hotel guest-room collection', industry: 'Hospitality & Tourism', year: '2025', cover: I.hospitality, gallery: [I.laundry, I.laundryMfg], tags: ['Laundry bags', 'Uniforms'], excerpt: 'Drawstring laundry bags, staff uniforms and in-room touchpoints in one consistent identity.' },
-  { _id: 'prj-healthcare', slug: 'healthcare-staff-programme', title: 'Healthcare staff programme', industry: 'Healthcare & Wellness', year: '2025', cover: I.healthcare, gallery: [I.reflectors, I.polo], tags: ['Uniforms', 'Reflectors'], excerpt: 'Hard-wearing branded uniforms and high-visibility reflectors for facility teams.' },
-  { _id: 'prj-education', slug: 'school-identity-refresh', title: 'School identity refresh', industry: 'Education', year: '2025', cover: I.education, gallery: [I.caps, I.notebooks], tags: ['Caps', 'Stationery'], excerpt: 'Caps, uniforms and stationery that carry a school’s crest with pride.' },
-  { _id: 'prj-ngo', slug: 'ngo-sustainable-campaign', title: 'NGO sustainable campaign', industry: 'Non-Profit & NGOs', year: '2024', cover: I.ngo, gallery: [I.jute, I.banners], tags: ['Jute bags', 'Banners'], excerpt: 'Campaign jute bags and event banners aligned with a community-first mission.' },
+  { _id: 'prj-corporate', slug: 'corporate-onboarding-kit', featured: true, title: 'Corporate onboarding kit', industry: 'Corporate & Finance', year: '2026', cover: I.corporate, gallery: [I.notebooks, stock('tees-hangers'), stock('bottles-steel'), stock('pens'), stock('mug-zigzag')], tags: ['Apparel', 'Stationery', 'Drinkware'], excerpt: 'A complete welcome pack of branded polos, notebooks and bottles that new hires actually use.' },
+  { _id: 'prj-retail', slug: 'retail-eco-packaging', featured: true, title: 'Retail eco-packaging switch', industry: 'Retail & E-commerce', year: '2026', cover: I.retail, gallery: [I.gift, stock('kraft-bags'), I.jute, stock('giftbox-black')], tags: ['Packaging', 'Jute bags'], excerpt: 'Branded kraft boxes, gift bags and jute totes replacing single-use plastic at checkout.' },
+  { _id: 'prj-hospitality', slug: 'hospitality-guest-collection', featured: true, title: 'Hotel guest-room collection', industry: 'Hospitality & Tourism', year: '2025', cover: I.hospitality, gallery: [I.laundry, I.laundryMfg, stock('sewing-4'), stock('rack-hangers')], tags: ['Laundry bags', 'Uniforms'], excerpt: 'Drawstring laundry bags, staff uniforms and in-room touchpoints in one consistent identity.' },
+  { _id: 'prj-healthcare', slug: 'healthcare-staff-programme', title: 'Healthcare staff programme', industry: 'Healthcare & Wellness', year: '2025', cover: I.healthcare, gallery: [I.reflectors, stock('hivis-runner'), stock('tees-stack')], tags: ['Uniforms', 'Reflectors'], excerpt: 'Hard-wearing branded uniforms and high-visibility reflectors for facility teams.' },
+  { _id: 'prj-education', slug: 'school-identity-refresh', title: 'School identity refresh', industry: 'Education', year: '2025', cover: I.education, gallery: [I.caps, stock('notebook-coffee'), stock('markers'), stock('stationery-flatlay')], tags: ['Caps', 'Stationery'], excerpt: 'Caps, uniforms and stationery that carry a school’s crest with pride.' },
+  { _id: 'prj-ngo', slug: 'ngo-sustainable-campaign', title: 'NGO sustainable campaign', industry: 'Non-Profit & NGOs', year: '2024', cover: I.ngo, gallery: [I.jute, stock('banners-1'), stock('hivis-team'), stock('burlap')], tags: ['Jute bags', 'Banners'], excerpt: 'Campaign jute bags and event banners aligned with a community-first mission.' },
 ];
 
 export const posts: Post[] = [
   {
-    _id: 'post-cost', slug: 'branded-merchandise-cost-kenya', category: 'Pricing guide', publishedAt: '2026-07-03', readTime: 7, cover: I.hero,
+    _id: 'post-cost', slug: 'branded-merchandise-cost-kenya', category: 'Pricing guide', publishedAt: '2026-07-03', readTime: 7, cover: stock('tees-folded'),
     title: 'How Much Does Branded Merchandise Cost in Kenya? 2026 Price Guide',
     excerpt: 'Real KSh prices for branded T-shirts, bottles, jute bags, banners, caps and more. Plan your corporate order budget with confidence.',
     body: md(`
@@ -336,7 +386,7 @@ Contact us with three things: what you want, how many you need, and when you nee
 `),
   },
   {
-    _id: 'post-gifts', slug: 'corporate-gift-ideas-nairobi', category: 'Corporate gifting', publishedAt: '2026-07-17', readTime: 5, cover: I.notebooks,
+    _id: 'post-gifts', slug: 'corporate-gift-ideas-nairobi', category: 'Corporate gifting', publishedAt: '2026-07-17', readTime: 5, cover: stock('giftbox-black'),
     title: 'Corporate Gift Ideas for Nairobi Businesses This Festive Season',
     excerpt: 'Practical, well-received corporate gift ideas ranked by budget, from branded notebooks to premium executive hampers.',
     body: md(`
@@ -370,7 +420,7 @@ Orders spike in November and December, so production slots fill quickly. Orderin
 `),
   },
   {
-    _id: 'post-eco', slug: 'eco-friendly-packaging-kenya', category: 'Sustainable packaging', publishedAt: '2026-07-31', readTime: 6, cover: I.jute,
+    _id: 'post-eco', slug: 'eco-friendly-packaging-kenya', category: 'Sustainable packaging', publishedAt: '2026-07-31', readTime: 6, cover: stock('kraft-bags'),
     title: 'Eco-Friendly Packaging Options for Kenyan Retail Brands',
     excerpt: 'Kraft paper, jute bags, recycled cardboard and biodegradable alternatives: what is available and what to consider when switching from plastic.',
     body: md(`

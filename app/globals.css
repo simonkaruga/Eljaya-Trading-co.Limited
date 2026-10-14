@@ -19,6 +19,7 @@
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 
   --animate-marquee: marquee var(--marquee-duration, 40s) linear infinite;
+  --animate-marquee-reverse: marquee var(--marquee-duration, 40s) linear infinite reverse;
   --animate-spin-slow: spin 18s linear infinite;
   --animate-kenburns: kenburns 9s ease-out forwards;
 

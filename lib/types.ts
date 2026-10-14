@@ -39,6 +39,7 @@ export type HeroSlide = { image: Img; eyebrow?: string; heading: string; text?: 
 export type Home = {
   heroSlides: HeroSlide[];
   marquee: string[];
+  showcase: Img[];
   introHeading: string;
   introText: string;
   ecoHeading: string;

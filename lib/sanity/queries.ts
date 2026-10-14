@@ -7,7 +7,7 @@ const RICH = `body[]{ ..., _type == "image" => { "_type": "image", "_key": _key,
 
 export const settingsQ = groq`*[_id == "siteSettings"][0]{ ..., ogImage${IMG} }`;
 
-export const homeQ = groq`*[_id == "homePage"][0]{ ..., heroSlides[]{ eyebrow, heading, text, image${IMG} }, ecoImage${IMG} }`;
+export const homeQ = groq`*[_id == "homePage"][0]{ ..., heroSlides[]{ eyebrow, heading, text, image${IMG} }, showcase[]${IMG}, ecoImage${IMG} }`;
 
 export const aboutQ = groq`*[_id == "aboutPage"][0]{ ..., image${IMG}, secondaryImage${IMG}, "story": story[]{ ... } }`;
 

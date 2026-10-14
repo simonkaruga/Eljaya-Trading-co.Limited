@@ -2,7 +2,7 @@ import { defineArrayMember, defineField, defineType } from 'sanity';
 import { CogIcon } from '@sanity/icons/Cog';
 import { HomeIcon } from '@sanity/icons/Home';
 import { UsersIcon } from '@sanity/icons/Users';
-import { imageField } from './fields';
+import { galleryField, imageField } from './fields';
 
 export const siteSettings = defineType({
   name: 'siteSettings',
@@ -90,6 +90,7 @@ export const homePage = defineType({
   groups: [
     { name: 'hero', title: 'Top slideshow', default: true },
     { name: 'intro', title: 'Intro' },
+    { name: 'gallery', title: 'Photo strip' },
     { name: 'eco', title: 'Eco section' },
     { name: 'cta', title: 'Bottom call-to-action' },
   ],
@@ -123,6 +124,7 @@ export const homePage = defineType({
       description: 'The words that scroll across under the slideshow.',
       of: [{ type: 'string' }],
     }),
+    { ...galleryField('showcase', 'Scrolling photo strip', 'gallery'), description: 'Two rows of photos that glide across the homepage. Add 8–20 of your best product and workshop photos.' },
     defineField({ name: 'introHeading', title: 'Intro heading', type: 'text', rows: 2, group: 'intro' }),
     defineField({ name: 'introText', title: 'Intro text', type: 'text', rows: 4, group: 'intro' }),
     defineField({ name: 'ecoHeading', title: 'Heading', type: 'string', group: 'eco' }),
