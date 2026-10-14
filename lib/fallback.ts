@@ -81,7 +81,7 @@ export const settings: Settings = {
   tagline: 'Eco friendly at its peak',
   phone: '+254 718 146 386',
   whatsapp: '254718146386',
-  email: 'eljayasupplies@gmail.com',
+  email: 'info@eljayatradingco.com',
   address: 'Coffee Plaza, Mfangano St, Nairobi',
   mapQuery: 'Coffee Plaza, Mfangano Street, Nairobi',
   hours: 'Mon – Fri, 8AM – 6PM',
@@ -507,10 +507,10 @@ Our website does not use tracking cookies or third-party advertising. We use onl
 We take reasonable precautions to protect your information. All communication with our website is encrypted via HTTPS.
 
 ## 6. Your rights
-You may request access to, correction of, or deletion of any personal information we hold about you. Email eljayasupplies@gmail.com to exercise these rights.
+You may request access to, correction of, or deletion of any personal information we hold about you. Email info@eljayatradingco.com to exercise these rights.
 
 ## 7. Contact
-Eljaya Trading Co. Limited, Coffee Plaza, Mfangano St, Nairobi. Email: eljayasupplies@gmail.com. Phone: +254 718 146 386.
+Eljaya Trading Co. Limited, Coffee Plaza, Mfangano St, Nairobi. Email: info@eljayatradingco.com. Phone: +254 718 146 386.
 `),
   },
   terms: {
@@ -545,7 +545,7 @@ Eljaya Trading Co. Limited’s liability is limited to the value of the order in
 These terms are governed by the laws of Kenya. Any disputes shall be resolved under the jurisdiction of Kenyan courts.
 
 ## 10. Contact
-Eljaya Trading Co. Limited, Coffee Plaza, Mfangano St, Nairobi. Email: eljayasupplies@gmail.com. Phone: +254 718 146 386.
+Eljaya Trading Co. Limited, Coffee Plaza, Mfangano St, Nairobi. Email: info@eljayatradingco.com. Phone: +254 718 146 386.
 `),
   },
 };

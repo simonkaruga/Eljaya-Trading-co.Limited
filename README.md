@@ -4,6 +4,8 @@ Marketing site for Eljaya Trading Co. Limited (branded merchandise & eco packagi
 The business owner edits everything (photos, slideshow, services, portfolio, news, testimonials, FAQs,
 contact details, announcement bar) from a built-in admin panel at **`/studio`**, without touching code.
 
+Built by **Avinaya Solutions Ltd** · +254 797 033 513
+
 **Stack:** Next.js 16 (App Router) · Sanity CMS · Tailwind CSS 4 · Motion · Resend · Vercel
 
 ## How content works

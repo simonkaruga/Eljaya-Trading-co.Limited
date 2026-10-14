@@ -84,9 +84,24 @@ export function Footer({ settings: s, services }: { settings: Settings; services
       <div className="border-t border-white/10">
         <div className="container-x flex flex-col items-center justify-between gap-3 py-6 text-xs text-paper/50 sm:flex-row">
           <p>© {new Date().getFullYear()} Eljaya Trading Co. Limited. All rights reserved.</p>
-          <div className="flex gap-5">
+          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
             <Link href="/privacy" className="hover:text-paper">Privacy</Link>
             <Link href="/terms" className="hover:text-paper">Terms</Link>
+            <span className="hidden h-3 w-px bg-white/20 sm:block" />
+            <span>
+              Website by{' '}
+              <a
+                href={`https://wa.me/254797033513?text=${encodeURIComponent('Hi Avinaya Solutions, I saw the Eljaya website and I’d like a website too.')}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-no-track
+                className="font-semibold text-paper/70 hover:text-lime"
+              >
+                Avinaya Solutions Ltd
+              </a>
+              {' · '}
+              <a href="tel:+254797033513" data-no-track className="hover:text-paper">+254 797 033 513</a>
+            </span>
           </div>
         </div>
       </div>

@@ -116,7 +116,7 @@ export async function POST(req: Request) {
       new Resend(process.env.RESEND_API_KEY).emails
         .send({
           from: process.env.CONTACT_FROM_EMAIL || 'Eljaya Website <onboarding@resend.dev>',
-          to: (process.env.CONTACT_TO_EMAIL || 'eljayasupplies@gmail.com').split(','),
+          to: (process.env.CONTACT_TO_EMAIL || 'info@eljayatradingco.com').split(','),
           replyTo: data.email,
           subject: items.length
             ? `Quote request${estimate ? ` (≈ KSh ${estimate.toLocaleString('en-KE')})` : ''}: ${data.name}${data.company ? `, ${data.company}` : ''}`

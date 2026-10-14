@@ -15,7 +15,7 @@ export function Analytics() {
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
       const a = (e.target as HTMLElement).closest('a');
-      if (!a) return;
+      if (!a || a.hasAttribute('data-no-track')) return; // e.g. the web designer's credit link
       const href = a.getAttribute('href') ?? '';
       const where = location.pathname;
       if (href.startsWith('tel:')) track('phone_click', { page: where });

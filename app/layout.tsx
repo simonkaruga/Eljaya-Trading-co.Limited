@@ -20,6 +20,8 @@ export async function generateMetadata(): Promise<Metadata> {
     metadataBase: new URL(SITE_URL),
     title: { default: s.seoTitle, template: `%s | ${s.name}` },
     description: s.seoDescription,
+    creator: 'Avinaya Solutions Ltd',
+    authors: [{ name: 'Avinaya Solutions Ltd', url: 'https://wa.me/254797033513' }],
     openGraph: {
       type: 'website',
       locale: 'en_KE',
