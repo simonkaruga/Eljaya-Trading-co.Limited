@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { AnimatePresence, motion } from 'motion/react';
 import { ArrowUpRight, CheckCircle2, Loader2 } from 'lucide-react';
 import { WhatsAppIcon } from './icons';
+import { track } from '@/lib/track';
 
 type Status = { state: 'idle' | 'sending' | 'sent' | 'error'; message?: string };
 
@@ -37,6 +38,7 @@ export function ContactForm({ services, whatsapp }: { services: string[]; whatsa
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(data.error ?? 'Something went wrong.');
+      track('contact_submit', { item: String(new FormData(form).get('service') ?? '') });
       form.reset();
       setStatus({ state: 'sent' });
     } catch (err) {

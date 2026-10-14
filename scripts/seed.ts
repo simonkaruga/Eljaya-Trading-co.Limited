@@ -83,8 +83,12 @@ async function build() {
       _id: sv._id, _type: 'service', order: i + 1, title: sv.title, slug: slug(sv.slug), category: sv.category,
       excerpt: sv.excerpt, description: sv.description, featured: sv.featured ?? false, priceFrom: sv.priceFrom,
       turnaround: sv.turnaround, minOrder: sv.minOrder, popularWith: sv.popularWith, features: sv.features,
+      options: sv.options?.map((o, k) => ({ _key: `o${k}`, _type: 'option', ...o })),
       image: await image(sv.image), gallery: await gallery(sv.gallery),
     });
+  }
+  for (const [i, pk] of F.packs.entries()) {
+    docs.push({ _id: pk._id, _type: 'pack', order: i + 1, title: pk.title, badge: pk.badge, tagline: pk.tagline, items: pk.items, minQty: pk.minQty, image: await image(pk.image) });
   }
   for (const [i, ind] of F.industries.entries()) {
     docs.push({ _id: ind._id, _type: 'industry', order: i + 1, title: ind.title, description: ind.description, stat: ind.stat, image: await image(ind.image) });

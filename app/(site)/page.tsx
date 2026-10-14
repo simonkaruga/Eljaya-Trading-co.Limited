@@ -1,8 +1,10 @@
 import type { Metadata } from 'next';
 import { Check } from 'lucide-react';
 import {
-  getAbout, getClientLogos, getFaqs, getHome, getIndustries, getPosts, getProjects, getServices, getSettings, getTestimonials,
+  getAbout, getClientLogos, getFaqs, getHome, getIndustries, getPacks, getPosts, getProjects, getServices, getSettings, getTestimonials,
 } from '@/lib/content';
+import { Packs } from '@/components/Packs';
+import { TrustStrip } from '@/components/TrustStrip';
 import { Hero } from '@/components/home/Hero';
 import { ServiceList } from '@/components/home/ServiceList';
 import { IndustryScroller } from '@/components/home/IndustryScroller';
@@ -25,8 +27,8 @@ import { GoogleIcon } from '@/components/icons';
 export const metadata: Metadata = { alternates: { canonical: '/' } };
 
 export default async function HomePage() {
-  const [s, home, about, services, industries, projects, testimonials, logos, posts, faqs] = await Promise.all([
-    getSettings(), getHome(), getAbout(), getServices(), getIndustries(), getProjects(), getTestimonials(), getClientLogos(), getPosts(), getFaqs(),
+  const [s, home, about, services, industries, projects, testimonials, logos, posts, faqs, packs] = await Promise.all([
+    getSettings(), getHome(), getAbout(), getServices(), getIndustries(), getProjects(), getTestimonials(), getClientLogos(), getPosts(), getFaqs(), getPacks(),
   ]);
 
   const featuredServices = services.filter((x) => x.featured);
@@ -44,6 +46,8 @@ export default async function HomePage() {
       <Hero slides={home.heroSlides} rating={s.rating} reviewCount={s.reviewCount} reviewUrl={s.googleReviewUrl} tagline={s.tagline} />
 
       <Marquee items={home.marquee} className="mt-10 py-4 font-display text-3xl text-ink/80 sm:text-5xl" duration={55} />
+
+      <TrustStrip className="mt-10" />
 
       {/* Intro + numbers */}
       <section className="container-x section-y">
@@ -85,9 +89,21 @@ export default async function HomePage() {
         <ServiceList services={shownServices} />
       </section>
 
+      {/* Gift packs */}
+      {packs.length > 0 && (
+        <section id="packs" className="scroll-mt-24 bg-sand section-y">
+          <div className="container-x">
+            <SectionHeading eyebrow="Ready-made gift packs" title={<>Bundles that make <em className="font-light text-leaf">ordering easy.</em></>} text="Pick a pack, tell us how many and we’ll brand every item to match. Each pack is fully customisable." className="mb-14">
+              <Button href="/quote" variant="dark">View my quote</Button>
+            </SectionHeading>
+            <Packs packs={packs} />
+          </div>
+        </section>
+      )}
+
       {/* Photo strip */}
       {home.showcase.length >= 4 && (
-        <section className="pb-24 lg:pb-32" aria-label="Gallery">
+        <section className="section-y" aria-label="Gallery">
           <div className="container-x mb-10 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
             <Reveal>
               <p className="eyebrow">In the making</p>

@@ -5,7 +5,7 @@ import { sanityEnabled } from './sanity/env';
 import * as Q from './sanity/queries';
 import * as F from './fallback';
 import type {
-  About, ClientLogo, Faq, Home, Industry, LegalPage, Post, Project, Service, Settings, Testimonial,
+  About, ClientLogo, Faq, Home, Industry, LegalPage, Pack, Post, Project, Service, Settings, Testimonial,
 } from './types';
 
 /** Revalidate at most every 5 minutes; the Sanity webhook (/api/revalidate) refreshes instantly on publish. */
@@ -48,6 +48,7 @@ export const getSettings = cache(async (): Promise<Settings> => {
 export const getHome = cache(() => single<Home>(Q.homeQ, F.home));
 export const getAbout = cache(() => single<About>(Q.aboutQ, F.about));
 export const getServices = cache(() => many<Service>(Q.servicesQ, F.services));
+export const getPacks = cache(() => many<Pack>(Q.packsQ, F.packs));
 export const getIndustries = cache(() => many<Industry>(Q.industriesQ, F.industries));
 export const getProjects = cache(() => many<Project>(Q.projectsQ, F.projects));
 export const getPosts = cache(() => many<Post>(Q.postsQ, F.posts.map(({ body: _body, ...p }) => p)));

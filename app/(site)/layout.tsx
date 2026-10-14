@@ -4,6 +4,8 @@ import { AnnouncementBar } from '@/components/AnnouncementBar';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { WhatsAppFloat } from '@/components/WhatsAppFloat';
+import { MobileActionBar } from '@/components/MobileActionBar';
+import { Analytics } from '@/components/Analytics';
 
 export default async function SiteLayout({ children }: { children: React.ReactNode }) {
   const [s, services] = await Promise.all([getSettings(), getServices()]);
@@ -37,10 +39,13 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
         Skip to content
       </a>
       <AnnouncementBar announcement={s.announcement} />
-      <Header name={s.name} tagline={s.tagline} phone={s.phone} />
+      <Header name={s.name} tagline={s.tagline} phone={s.phone} menu={services.map(({ title, slug, category, image, priceFrom }) => ({ title, slug, category, image, priceFrom }))} />
       <main id="main">{children}</main>
       <Footer settings={s} services={services} />
       <WhatsAppFloat number={s.whatsapp} />
+      <MobileActionBar phone={s.phone} whatsapp={s.whatsapp} />
+      <div aria-hidden className="h-16 lg:hidden" />
+      <Analytics />
       <div aria-hidden className="grain" />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }} />
     </>

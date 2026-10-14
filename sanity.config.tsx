@@ -15,6 +15,7 @@ import { BlockquoteIcon } from '@sanity/icons/Blockquote';
 import { TagsIcon } from '@sanity/icons/Tags';
 import { HelpCircleIcon } from '@sanity/icons/HelpCircle';
 import { ImagesIcon } from '@sanity/icons/Images';
+import { BasketIcon as GiftIcon } from '@sanity/icons/Basket';
 import { schemaTypes, SINGLETONS } from './sanity/schemas';
 import { projectId, dataset } from './lib/sanity/env';
 
@@ -79,6 +80,7 @@ export default defineConfig({
             singleton(S, 'siteSettings', 'siteSettings', 'Business details & announcements', CogIcon),
             S.divider(),
             list(S, 'service', 'Products & services', PackageIcon),
+            list(S, 'pack', 'Gift packs', GiftIcon),
             list(S, 'project', 'Portfolio', CaseIcon),
             list(S, 'post', 'News & blog', DocumentTextIcon),
             list(S, 'testimonial', 'Testimonials', BlockquoteIcon),

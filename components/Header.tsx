@@ -3,13 +3,33 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'motion/react';
-import { Phone } from 'lucide-react';
+import { ChevronDown, Phone, ShoppingBag } from 'lucide-react';
+import { useQuote } from '@/lib/quote';
+import type { Img } from '@/lib/types';
+import { SmartImage } from './SmartImage';
 import { NAV } from './nav';
 import { Button } from './Button';
 
-export function Header({ name, tagline, phone }: { name: string; tagline: string; phone: string }) {
+export type MenuService = { title: string; slug: string; category: string; image: Img; priceFrom?: string };
+
+const GROUPS = [
+  { key: 'merchandise', label: 'Promotional merchandise' },
+  { key: 'packaging', label: 'Eco packaging' },
+  { key: 'identity', label: 'Identity & print' },
+];
+
+export function Header({ name, tagline, phone, menu }: { name: string; tagline: string; phone: string; menu: MenuService[] }) {
+  const quoteItems = useQuote();
+  const [mega, setMegaState] = useState(false);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Small close delay so moving the pointer from the nav down into the panel doesn't dismiss it
+  const setMega = (open: boolean) => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    if (open) setMegaState(true);
+    else closeTimer.current = setTimeout(() => setMegaState(false), 180);
+  };
   const pathname = usePathname();
   // The menu remembers the page it was opened on, so navigating closes it automatically
   const [openedOn, setOpenedOn] = useState<string | null>(null);
@@ -49,10 +69,10 @@ export function Header({ name, tagline, phone }: { name: string; tagline: string
             </span>
           </Link>
 
-          <nav aria-label="Main" className="hidden lg:block">
+          <nav aria-label="Main" className="hidden lg:block [&_li]:static">
             <ul className="flex items-center gap-1 rounded-full border border-line bg-paper/60 p-1.5">
               {NAV.filter((n) => n.href !== '/contact').map((n) => (
-                <li key={n.href}>
+                <li key={n.href} {...(n.href === '/services' ? { onMouseEnter: () => setMega(true), onMouseLeave: () => setMega(false), onFocus: () => setMega(true) } : {})}>
                   <Link
                     href={n.href}
                     className={`relative block rounded-full px-4 py-2 text-[0.92rem] font-medium transition-colors ${
@@ -63,7 +83,52 @@ export function Header({ name, tagline, phone }: { name: string; tagline: string
                       <motion.span layoutId="nav-pill" className="absolute inset-0 -z-10 rounded-full bg-ink" transition={{ type: 'spring', stiffness: 400, damping: 34 }} />
                     )}
                     {n.label}
+                    {n.href === '/services' && <ChevronDown className={`ml-1 inline size-3.5 transition-transform ${mega ? 'rotate-180' : ''}`} />}
                   </Link>
+                  {n.href === '/services' && (
+                    <AnimatePresence>
+                      {mega && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 8 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: 8 }}
+                          transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                          className="absolute inset-x-0 top-full pt-2"
+                          onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget as Node)) setMega(false); }}
+                        >
+                          <div className="container-x">
+                            <div className="grid grid-cols-12 gap-8 rounded-[1.75rem] border border-line bg-paper p-7 shadow-[0_30px_80px_-30px_rgb(15_36_26/0.35)]">
+                              {GROUPS.map((g) => (
+                                <div key={g.key} className="col-span-3">
+                                  <p className="text-xs font-bold uppercase tracking-[0.16em] text-muted">{g.label}</p>
+                                  <ul className="mt-4 space-y-1">
+                                    {menu.filter((m) => m.category === g.key).map((m) => (
+                                      <li key={m.slug}>
+                                        <Link href={`/services/${m.slug}`} onClick={() => setMega(false)} className="group/item flex items-center gap-3 rounded-xl p-2 transition-colors hover:bg-sand">
+                                          <span className="relative size-11 shrink-0 overflow-hidden rounded-lg bg-sand">
+                                            <SmartImage image={m.image} fill sizes="44px" className="object-cover" />
+                                          </span>
+                                          <span className="min-w-0">
+                                            <span className="block truncate text-sm font-semibold text-ink group-hover/item:text-leaf">{m.title}</span>
+                                            {m.priceFrom && <span className="block text-xs text-muted">from {m.priceFrom}</span>}
+                                          </span>
+                                        </Link>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              ))}
+                              <Link href="/services#packs" onClick={() => setMega(false)} className="group/card relative col-span-3 overflow-hidden rounded-2xl bg-forest p-6 text-paper">
+                                <p className="text-xs font-bold uppercase tracking-[0.16em] text-lime">Gift packs</p>
+                                <p className="mt-3 font-display text-2xl leading-tight">Ready-made kits for onboarding, events & festive gifting</p>
+                                <span className="mt-6 inline-flex items-center gap-2 rounded-full bg-lime px-4 py-2 text-sm font-semibold text-forest">Browse packs</span>
+                              </Link>
+                            </div>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  )}
                 </li>
               ))}
             </ul>
@@ -73,7 +138,14 @@ export function Header({ name, tagline, phone }: { name: string; tagline: string
             <a href={`tel:${phone.replace(/\s/g, '')}`} className="flex items-center gap-2 text-sm font-semibold text-ink-2 hover:text-leaf">
               <Phone className="size-4" /> {phone}
             </a>
-            <Button href="/contact" className="!py-3">Get a quote</Button>
+            {quoteItems.length > 0 ? (
+              <Link href="/quote" className="inline-flex items-center gap-2.5 rounded-full bg-lime px-5 py-3 text-[0.95rem] font-semibold text-forest transition-colors hover:bg-ink hover:text-paper">
+                <ShoppingBag className="size-4" /> My quote
+                <span className="grid min-w-6 place-items-center rounded-full bg-forest px-1.5 text-xs leading-6 text-lime">{quoteItems.length}</span>
+              </Link>
+            ) : (
+              <Button href="/contact" className="!py-3">Get a quote</Button>
+            )}
           </div>
 
           <button

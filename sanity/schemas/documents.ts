@@ -1,4 +1,5 @@
-import { defineField, defineType } from 'sanity';
+import { defineArrayMember, defineField, defineType } from 'sanity';
+import { BasketIcon as GiftIcon } from '@sanity/icons/Basket';
 import { BlockquoteIcon } from '@sanity/icons/Blockquote';
 import { CaseIcon } from '@sanity/icons/Case';
 import { DocumentTextIcon } from '@sanity/icons/DocumentText';
@@ -47,11 +48,50 @@ export const service = defineType({
     defineField({ name: 'minOrder', title: 'Minimum order', type: 'string', group: 'details' }),
     defineField({ name: 'popularWith', title: 'Popular with', type: 'string', group: 'details' }),
     defineField({ name: 'features', title: 'Key features', type: 'array', of: [{ type: 'string' }], group: 'details' }),
+    defineField({
+      name: 'options',
+      title: 'Price list / options',
+      type: 'array',
+      group: 'details',
+      description: 'Variants customers can pick in the instant quote (e.g. "Polo shirt 220gsm"). Leave the price empty to show "price on request".',
+      of: [
+        defineArrayMember({
+          type: 'object',
+          name: 'option',
+          fields: [
+            { name: 'name', title: 'Option', type: 'string', validation: (r) => r.required() },
+            { name: 'unitPrice', title: 'Price per piece from (KSh)', type: 'number' },
+            { name: 'minQty', title: 'Minimum order', type: 'number' },
+            { name: 'note', title: 'Note', type: 'string' },
+          ],
+          preview: { select: { t: 'name', p: 'unitPrice', m: 'minQty' }, prepare: ({ t, p, m }) => ({ title: t, subtitle: `${p ? `KSh ${p}` : 'On request'}${m ? ` · min ${m}` : ''}` }) },
+        }),
+      ],
+    }),
     imageField('image', 'Main photo', { required: true, group: 'photos' }),
     galleryField('gallery', 'More photos', 'photos'),
   ],
   orderings: [{ title: 'Display order', name: 'order', by: [{ field: 'order', direction: 'asc' }] }],
   preview: { select: { title: 'title', subtitle: 'category', media: 'image' } },
+});
+
+export const pack = defineType({
+  name: 'pack',
+  title: 'Gift pack',
+  type: 'document',
+  icon: GiftIcon,
+  description: 'Ready-made bundles (welcome kits, hampers…) shown on the homepage and services page.',
+  fields: [
+    defineField({ name: 'title', title: 'Pack name', type: 'string', validation: (r) => r.required() }),
+    defineField({ name: 'badge', title: 'Badge (optional)', type: 'string', description: 'e.g. Most popular' }),
+    defineField({ name: 'tagline', title: 'Short description', type: 'string', validation: (r) => r.required() }),
+    imageField('image', 'Photo', { required: true }),
+    defineField({ name: 'items', title: "What's inside", type: 'array', of: [{ type: 'string' }] }),
+    defineField({ name: 'minQty', title: 'Minimum packs', type: 'number' }),
+    orderField,
+  ],
+  orderings: [{ title: 'Display order', name: 'order', by: [{ field: 'order', direction: 'asc' }] }],
+  preview: { select: { title: 'title', subtitle: 'tagline', media: 'image' } },
 });
 
 export const industry = defineType({
@@ -203,15 +243,39 @@ export const enquiry = defineType({
     defineField({ name: 'service', title: 'Interested in', type: 'string', readOnly: true }),
     defineField({ name: 'quantity', title: 'Quantity', type: 'string', readOnly: true }),
     defineField({ name: 'message', title: 'Message', type: 'text', readOnly: true }),
+    defineField({
+      name: 'items',
+      title: 'Quote items',
+      type: 'array',
+      readOnly: true,
+      of: [
+        defineArrayMember({
+          type: 'object',
+          name: 'quoteItem',
+          fields: [
+            { name: 'product', type: 'string', title: 'Product' },
+            { name: 'option', type: 'string', title: 'Option' },
+            { name: 'quantity', type: 'number', title: 'Quantity' },
+            { name: 'decoration', type: 'string', title: 'Branding method' },
+            { name: 'unitPrice', type: 'number', title: 'Listed price from (KSh)' },
+          ],
+          preview: { select: { p: 'product', o: 'option', q: 'quantity', d: 'decoration' }, prepare: ({ p, o, q, d }) => ({ title: `${q ?? ''} × ${o || p}`, subtitle: [p, d].filter(Boolean).join(' · ') }) },
+        }),
+      ],
+    }),
+    defineField({ name: 'estimate', title: 'Estimated value (KSh, from)', type: 'number', readOnly: true }),
+    defineField({ name: 'neededBy', title: 'Needed by', type: 'date', readOnly: true }),
+    defineField({ name: 'location', title: 'Delivery location', type: 'string', readOnly: true }),
+    defineField({ name: 'artwork', title: 'Logo / artwork', type: 'file', readOnly: true }),
     defineField({ name: 'notes', title: 'Internal notes', type: 'text', rows: 3, description: 'Only visible to your team.' }),
     defineField({ name: 'submittedAt', title: 'Received', type: 'datetime', readOnly: true }),
   ],
   orderings: [{ title: 'Newest first', name: 'newest', by: [{ field: 'submittedAt', direction: 'desc' }] }],
   preview: {
-    select: { name: 'name', company: 'company', service: 'service', status: 'status', at: 'submittedAt' },
-    prepare: ({ name, company, service, status, at }) => ({
+    select: { name: 'name', company: 'company', service: 'service', status: 'status', at: 'submittedAt', est: 'estimate' },
+    prepare: ({ name, company, service, status, at, est }) => ({
       title: `${status === 'new' ? '🟢 ' : ''}${name ?? 'Unknown'}${company ? ` · ${company}` : ''}`,
-      subtitle: `${service ?? ''}${at ? ` · ${new Date(at).toLocaleDateString('en-KE', { day: 'numeric', month: 'short' })}` : ''}`,
+      subtitle: `${est ? `≈ KSh ${Math.round(est).toLocaleString()} · ` : ''}${service ?? ''}${at ? ` · ${new Date(at).toLocaleDateString('en-KE', { day: 'numeric', month: 'short' })}` : ''}`,
     }),
   },
 });

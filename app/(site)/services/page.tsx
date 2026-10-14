@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
-import { getFaqs, getServices, getSettings } from '@/lib/content';
+import { getFaqs, getPacks, getServices, getSettings } from '@/lib/content';
+import { Packs } from '@/components/Packs';
+import { TrustStrip } from '@/components/TrustStrip';
 import { PageHero } from '@/components/PageHero';
 import { ServicesBrowser } from '@/components/Browsers';
 import { ServiceCard } from '@/components/ServiceCard';
@@ -15,7 +17,7 @@ export const metadata: Metadata = {
 };
 
 export default async function ServicesPage() {
-  const [services, faqs, s] = await Promise.all([getServices(), getFaqs(), getSettings()]);
+  const [services, faqs, s, packs] = await Promise.all([getServices(), getFaqs(), getSettings(), getPacks()]);
   const grid = 'grid gap-5 md:grid-cols-2 xl:grid-cols-3';
 
   return (
@@ -33,8 +35,19 @@ export default async function ServicesPage() {
         </Suspense>
       </section>
 
+      <TrustStrip className="pb-24 lg:pb-32" />
+
+      {packs.length > 0 && (
+        <section id="packs" className="scroll-mt-24 bg-sand section-y">
+          <div className="container-x">
+            <SectionHeading eyebrow="Gift packs" title={<>Ready-made kits, <em className="font-light text-leaf">your branding.</em></>} text="Onboarding kits, festive hampers, conference packs and eco starters. Add one to your quote and we’ll tailor it." className="mb-14" />
+            <Packs packs={packs} />
+          </div>
+        </section>
+      )}
+
       {faqs.length > 0 && (
-        <section className="container-x pb-24 lg:pb-32">
+        <section className="container-x section-y">
           <div className="grid gap-12 lg:grid-cols-12">
             <div className="lg:col-span-4"><SectionHeading eyebrow="FAQ" title="Before you order" /></div>
             <div className="lg:col-span-8"><Faq items={faqs} /></div>

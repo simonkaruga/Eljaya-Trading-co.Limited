@@ -9,7 +9,8 @@ import { Button } from '@/components/Button';
 import { Reveal, ImageReveal } from '@/components/Reveal';
 import { ServiceCard, CATEGORY_LABELS } from '@/components/ServiceCard';
 import { CtaBand } from '@/components/CtaBand';
-import { WhatsAppIcon } from '@/components/icons';
+import { TrustStrip } from '@/components/TrustStrip';
+import { QuoteBuilder } from '@/components/quote/QuoteBuilder';
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -40,7 +41,26 @@ export default async function ServicePage({ params }: Props) {
     { icon: Package, label: 'Minimum order', value: s.minOrder },
     { icon: Users, label: 'Popular with', value: s.popularWith },
   ].filter((f) => f.value);
-  const wa = `https://wa.me/${settings.whatsapp}?text=${encodeURIComponent(`Hi Eljaya, I'd like a quote for ${s.title}.`)}`;
+  const minQty = Number.parseInt(s.minOrder ?? '', 10) || undefined;
+  const productLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: s.title,
+    description: s.description ?? s.excerpt,
+    image: s.image.src.startsWith('http') ? s.image.src : `${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://eljayatradingco.com'}${s.image.src}`,
+    brand: { '@type': 'Brand', name: 'Eljaya Trading Co.' },
+    ...(s.options?.some((o) => o.unitPrice)
+      ? {
+          offers: {
+            '@type': 'AggregateOffer',
+            priceCurrency: 'KES',
+            lowPrice: Math.min(...s.options.filter((o) => o.unitPrice).map((o) => o.unitPrice!)),
+            highPrice: Math.max(...s.options.filter((o) => o.unitPrice).map((o) => o.unitPrice!)),
+            offerCount: s.options.filter((o) => o.unitPrice).length,
+          },
+        }
+      : {}),
+  };
 
   return (
     <>
@@ -50,7 +70,7 @@ export default async function ServicePage({ params }: Props) {
           <Link href={`/services?category=${s.category}`} className="hover:text-ink">{CATEGORY_LABELS[s.category]}</Link>
         </nav>
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
-          <ImageReveal className="relative aspect-square overflow-hidden rounded-[2rem] bg-sand lg:sticky lg:top-28 lg:self-start">
+          <ImageReveal className="relative aspect-[4/3] overflow-hidden rounded-[2rem] bg-sand sm:aspect-square lg:sticky lg:top-28 lg:self-start">
             <SmartImage image={s.image} fill priority sizes="(max-width:1024px) 100vw, 50vw" className="object-cover" />
           </ImageReveal>
           <div>
@@ -58,6 +78,10 @@ export default async function ServicePage({ params }: Props) {
               <p className="eyebrow">{CATEGORY_LABELS[s.category]}</p>
               <h1 className="mt-5 text-balance text-5xl leading-[1.04] sm:text-6xl">{s.title}</h1>
               <p className="mt-6 text-lg leading-relaxed text-ink-2">{s.description ?? s.excerpt}</p>
+            </Reveal>
+
+            <Reveal delay={0.05} className="mt-10">
+              <QuoteBuilder product={s.title} slug={s.slug} options={s.options ?? []} image={s.image} whatsapp={settings.whatsapp} fallbackMin={minQty} />
             </Reveal>
 
             {facts.length > 0 && (
@@ -86,15 +110,12 @@ export default async function ServicePage({ params }: Props) {
               </Reveal>
             )}
 
-            <Reveal delay={0.16} className="mt-12 flex flex-wrap gap-3">
-              <Button href={`/contact?service=${encodeURIComponent(s.title)}`}>Request a quote</Button>
-              <a href={wa} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full border border-line px-6 py-3.5 font-semibold transition-colors hover:border-[#25D366] hover:bg-[#25D366] hover:text-white">
-                <WhatsAppIcon className="size-5" /> Ask on WhatsApp
-              </a>
-            </Reveal>
+
           </div>
         </div>
       </section>
+
+      <TrustStrip className="mt-20" />
 
       {!!s.gallery?.length && (
         <section className="container-x section-y">
@@ -115,6 +136,7 @@ export default async function ServicePage({ params }: Props) {
         </section>
       )}
 
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productLd).replace(/</g, '\\u003c') }} />
       <CtaBand heading="Ready when you are." text={`Tell us the quantity and deadline for your ${s.title.toLowerCase()} and we’ll send a detailed quote within 24 hours.`} phone={settings.phone} />
     </>
   );

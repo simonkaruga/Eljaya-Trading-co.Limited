@@ -10,7 +10,7 @@
  */
 import { md } from './md.ts';
 import type {
-  About, Faq, Home, Img, Industry, LegalPage, Post, Project, Service, Settings, Testimonial,
+  About, Faq, Home, Img, Industry, LegalPage, Pack, Post, Project, Service, Settings, Testimonial,
 } from './types.ts';
 
 const img = (file: string, alt: string, w: number, h: number): Img => ({ src: `/images/${file}`, alt, w, h });
@@ -202,6 +202,7 @@ export const services: Service[] = [
     image: I.polo, gallery: [stock('tees-hangers'), stock('tees-folded'), stock('tees-stack'), stock('sewing-1'), stock('threads-rainbow'), stock('rack-hangers')], turnaround: '7–10 business days', minOrder: '20 pieces', priceFrom: 'KSh 650',
     popularWith: 'Corporates, schools, NGOs, hospitality',
     features: ['220–240 GSM cotton & poly-cotton blends', 'Screen printing & embroidery', 'All sizes including plus sizes', 'Sample provided before bulk production'],
+    options: [{ name: 'Branded T-shirt (180gsm)', unitPrice: 650, minQty: 50 }, { name: 'Polo shirt (220gsm piqué)', unitPrice: 950, minQty: 30 }, { name: 'Premium polo (240gsm)', unitPrice: 1400, minQty: 20 }, { name: 'Staff uniform set', unitPrice: 2200, minQty: 20 }],
   },
   {
     _id: 'svc-bottles', slug: 'branded-bottles', category: 'merchandise', featured: true,
@@ -211,6 +212,7 @@ export const services: Service[] = [
     image: I.bottles, gallery: [stock('bottles-steel'), stock('bottles-sport'), I.mug, stock('mug-zigzag'), stock('mug-enamel'), stock('mug-white')], turnaround: '5–7 business days', minOrder: '25 pieces', priceFrom: 'KSh 450',
     popularWith: 'Corporate events, staff gifts, schools',
     features: ['BPA-free & food-safe materials', '350ml, 500ml & 750ml options', 'Insulated stainless steel available', 'Print or laser engraving'],
+    options: [{ name: 'Plastic bottle (500ml)', unitPrice: 450, minQty: 50 }, { name: 'Aluminium sports bottle', unitPrice: 750, minQty: 30 }, { name: 'Stainless steel tumbler', unitPrice: 1200, minQty: 20 }, { name: 'Ceramic mug', unitPrice: 550, minQty: 24 }],
   },
   {
     _id: 'svc-caps', slug: 'branded-caps', category: 'merchandise',
@@ -220,6 +222,7 @@ export const services: Service[] = [
     image: I.caps, gallery: [stock('hats'), stock('threads-jar'), stock('threads-pile')], turnaround: '7–10 business days', minOrder: '24 pieces', priceFrom: 'KSh 550',
     popularWith: 'Corporates, sports clubs, schools, events',
     features: ['Baseball caps, bucket hats & beanies', 'Embroidery & print options', 'Adjustable one-size-fits-most', 'Wide colour range'],
+    options: [{ name: 'Baseball cap (embroidered)', unitPrice: 650, minQty: 24 }, { name: 'Trucker cap (mesh back)', unitPrice: 550, minQty: 24 }, { name: 'Bucket hat', unitPrice: 700, minQty: 30 }],
   },
   {
     _id: 'svc-reflectors', slug: 'safety-reflectors', category: 'merchandise',
@@ -229,6 +232,7 @@ export const services: Service[] = [
     image: I.reflectors, gallery: [stock('hivis-team'), stock('hivis-runner')], turnaround: '5–7 business days', minOrder: '100 pieces', priceFrom: 'KSh 120',
     popularWith: 'NGOs, schools, government, corporates',
     features: ['Wristband, clip-on & keyring styles', 'High-visibility certified materials', 'Custom logo & message printing', 'Bulk pricing for large campaigns'],
+    options: [{ name: 'Snap-band reflector', unitPrice: 120, minQty: 100 }, { name: 'Reflector vest', unitPrice: 850, minQty: 20 }],
   },
   {
     _id: 'svc-notebooks', slug: 'notebooks-stationery', category: 'merchandise',
@@ -238,6 +242,7 @@ export const services: Service[] = [
     image: I.notebooks, gallery: [stock('notebook-coffee'), stock('pens'), stock('markers'), stock('stationery-flatlay'), stock('notebook-vintage')], turnaround: '7–10 business days', minOrder: '25 pieces',
     popularWith: 'Corporates, conferences, staff gifting',
     features: ['A4 & A5 hardcover & softcover', 'Embossed or printed cover branding', 'Recycled-paper options', 'Matching pen sets available'],
+    options: [{ name: 'A5 notebook', minQty: 25 }, { name: 'A4 notebook', minQty: 25 }, { name: 'Notebook + pen set', minQty: 25 }],
   },
   {
     _id: 'svc-jute', slug: 'jute-eco-bags', category: 'packaging', featured: true,
@@ -247,6 +252,7 @@ export const services: Service[] = [
     image: I.jute, gallery: [stock('burlap'), stock('kraft-bags'), I.gift], turnaround: '7–10 business days', minOrder: '50 pieces', priceFrom: 'KSh 280',
     popularWith: 'Retail, NGOs, events, corporate gifting',
     features: ['Jute, canvas & non-woven options', '100% biodegradable materials', 'Up to 4-colour logo printing', 'Bulk discounts from 100 pieces'],
+    options: [{ name: 'Jute tote bag', unitPrice: 280, minQty: 50 }, { name: 'Jute bag with gusset & handles', unitPrice: 380, minQty: 50 }, { name: 'Non-woven shopping bag', unitPrice: 180, minQty: 100 }, { name: 'Canvas tote bag', unitPrice: 420, minQty: 30 }],
   },
   {
     _id: 'svc-packaging', slug: 'custom-packaging', category: 'packaging', featured: true,
@@ -256,6 +262,7 @@ export const services: Service[] = [
     image: I.gift, gallery: [stock('kraft-bags'), stock('giftbox-black'), I.jute], turnaround: '7–14 business days', minOrder: '50 pieces',
     popularWith: 'E-commerce, retail, corporate gifting',
     features: ['Boxes, bags, tissue & mailers', 'Full-colour custom printing', 'Eco-friendly material options', 'OEM & white-label available'],
+    options: [{ name: 'Branded gift bags', minQty: 50 }, { name: 'Custom boxes', minQty: 50 }, { name: 'Mailer bags', minQty: 50 }, { name: 'Branded tissue paper', minQty: 50 }],
   },
   {
     _id: 'svc-laundry', slug: 'laundry-bag-manufacturing', category: 'packaging',
@@ -265,6 +272,7 @@ export const services: Service[] = [
     image: I.laundry, gallery: [I.laundryMfg, stock('sewing-2'), stock('sewing-4'), stock('tailor')], turnaround: '10–14 business days', minOrder: '100 pieces',
     popularWith: 'Hotels, hospitals, schools, laundry services',
     features: ['Polypropylene, canvas & nylon', 'Custom sizes & drawstring styles', 'OEM manufacturing available', 'Bulk production with QA checks'],
+    options: [{ name: 'Polypropylene laundry bag', minQty: 100 }, { name: 'Cotton canvas laundry bag', minQty: 100 }, { name: 'Nylon laundry bag', minQty: 100 }],
   },
   {
     _id: 'svc-banners', slug: 'banners-signage', category: 'identity', featured: true,
@@ -274,6 +282,7 @@ export const services: Service[] = [
     image: I.banners, gallery: [stock('banners-1'), stock('banners-2')], turnaround: '2–4 business days', minOrder: '1 piece', priceFrom: 'KSh 1,800',
     popularWith: 'Events, exhibitions, retail, NGOs',
     features: ['440gsm PVC & fabric options', 'UV-resistant outdoor inks', 'Custom dimensions available', 'Mounting hardware included'],
+    options: [{ name: 'Pull-up banner (85 × 200cm)', unitPrice: 3500, minQty: 1 }, { name: 'Vinyl banner (1 × 2m)', unitPrice: 1800, minQty: 1 }, { name: 'Vinyl banner (2 × 4m)', unitPrice: 4500, minQty: 1 }, { name: 'Fabric backdrop (2 × 3m)', unitPrice: 6500, minQty: 1 }],
   },
   {
     _id: 'svc-collateral', slug: 'brand-collateral', category: 'identity', featured: true,
@@ -283,7 +292,15 @@ export const services: Service[] = [
     image: I.brochures, gallery: [stock('cards-blue'), stock('markers'), stock('stationery-flatlay')], turnaround: '3–5 business days', minOrder: '50 pieces',
     popularWith: 'Sales teams, trade shows, product launches',
     features: ['Logo & brand identity design', '300–350gsm coated stock', 'Gloss & matte lamination', 'Same-day proofs on request'],
+    options: [{ name: 'Business cards', minQty: 50 }, { name: 'Brochures / flyers', minQty: 50 }, { name: 'Logo & brand identity design', minQty: 1 }],
   },
+];
+
+export const packs: Pack[] = [
+  { _id: 'pack-onboarding', title: 'New-hire welcome kit', badge: 'Most popular', tagline: 'Make day one memorable and keep your brand on every desk.', image: stock('tees-hangers'), items: ['Branded polo or T-shirt', 'A5 notebook & pen', 'Stainless steel bottle', 'Jute tote to carry it all'], minQty: 20 },
+  { _id: 'pack-festive', title: 'Festive client hamper', badge: 'Book by November', tagline: 'Year-end thank-you gifts that clients actually keep.', image: stock('giftbox-black'), items: ['Branded gift box', 'Premium notebook', 'Steel tumbler or mug', 'Optional Kenyan coffee or honey'], minQty: 25 },
+  { _id: 'pack-conference', title: 'Conference & event pack', tagline: 'Everything delegates need, with your logo front and centre.', image: stock('notebook-coffee'), items: ['Printed jute or canvas bag', 'Notebook & pen', 'Branded cap or lanyard', 'Pull-up banner for the venue'], minQty: 50 },
+  { _id: 'pack-eco', title: 'Eco brand starter', badge: 'Plastic-free', tagline: 'Switch to sustainable packaging and branded reusables in one order.', image: stock('kraft-bags'), items: ['Kraft paper carrier bags', 'Printed jute totes', 'Recycled-paper notebooks', 'Reusable bottles'], minQty: 50 },
 ];
 
 export const industries: Industry[] = [

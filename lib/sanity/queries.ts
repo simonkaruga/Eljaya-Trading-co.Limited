@@ -11,9 +11,11 @@ export const homeQ = groq`*[_id == "homePage"][0]{ ..., heroSlides[]{ eyebrow, h
 
 export const aboutQ = groq`*[_id == "aboutPage"][0]{ ..., image${IMG}, secondaryImage${IMG}, "story": story[]{ ... } }`;
 
-const SERVICE = `_id, title, "slug": slug.current, category, excerpt, description, image${IMG}, gallery[]${IMG}, turnaround, minOrder, priceFrom, popularWith, features, featured`;
+const SERVICE = `_id, title, "slug": slug.current, category, excerpt, description, image${IMG}, gallery[]${IMG}, turnaround, minOrder, priceFrom, popularWith, features, options, featured`;
 export const servicesQ = groq`*[_type == "service" && defined(slug.current)] | order(order asc, title asc){ ${SERVICE} }`;
 export const serviceQ = groq`*[_type == "service" && slug.current == $slug][0]{ ${SERVICE} }`;
+
+export const packsQ = groq`*[_type == "pack"] | order(order asc){ _id, title, badge, tagline, items, minQty, image${IMG} }`;
 
 export const industriesQ = groq`*[_type == "industry"] | order(order asc){ _id, title, description, stat, image${IMG} }`;
 

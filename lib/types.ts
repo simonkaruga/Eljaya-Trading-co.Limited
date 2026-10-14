@@ -66,6 +66,18 @@ export type About = {
 
 export type ServiceCategory = 'merchandise' | 'packaging' | 'identity';
 
+export type ServiceOption = { name: string; unitPrice?: number; minQty?: number; note?: string };
+
+export type Pack = {
+  _id: string;
+  title: string;
+  tagline: string;
+  image: Img;
+  items: string[];
+  minQty?: number;
+  badge?: string;
+};
+
 export type Service = {
   _id: string;
   title: string;
@@ -80,6 +92,7 @@ export type Service = {
   priceFrom?: string;
   popularWith?: string;
   features?: string[];
+  options?: ServiceOption[];
   featured?: boolean;
 };
 
