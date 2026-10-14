@@ -1,5 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://eljayatradingco.com/sitemap.xml
-Sitemap: https://www.eljayatradingco.com/sitemap.xml
