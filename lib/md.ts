@@ -4,7 +4,6 @@
  *
  * Supports: `## h2`, `### h3`, `- bullets`, `> callout`, `| table | rows |`
  * (first row is the header), paragraphs, **bold** and [links](/url).
- * `@photo name | caption` emits a photo placeholder resolved by the caller.
  */
 let n = 0;
 const key = () => `k${(n++).toString(36)}`;
@@ -49,9 +48,6 @@ export function md(src: string) {
         out.push(table);
       }
       table.rows.push({ _key: key(), cells });
-    } else if (line.startsWith('@photo ')) {
-      const [name, caption] = line.slice(7).split('|').map((x) => x.trim());
-      out.push({ _type: 'photoRef', _key: key(), name, caption });
     } else if (line.startsWith('> ')) {
       out.push({ _type: 'callout', _key: key(), text: line.slice(2) });
     } else {

@@ -74,44 +74,7 @@ const STOCK = {
   'sewing-2': [2000, 1333, "Production team at work in a sewing workshop"],
   'sewing-4': [2000, 1289, "Machinist finishing a product on an industrial machine"],
   'burlap': [1024, 536, "Close-up of natural jute fabric"],
-  // Kenyan scenes (Wikimedia Commons / Flickr, CC BY, CC BY-SA or public domain — credited on /credits)
-  'ke-nairobi-skyline': [2000, 1333, "Nairobi city skyline with KICC seen from Uhuru Park"],
-  'ke-kitenge-boutique': [1600, 1117, "Colourful kitenge dresses on display at a Nairobi boutique"],
-  'ke-coast-resort': [1600, 1066, "Beach resort pool among palm trees at Nyali, Mombasa"],
-  'ke-nurse-scrubs': [2000, 1333, "Nurse in blue scrubs preparing a hospital room in Kenya"],
-  'ke-classroom': [2000, 1500, "Maths lesson in a Kenyan primary school classroom"],
-  'ke-community-training': [2000, 1328, "Women farmers at a community training session in Nyando, Kenya"],
-  'ke-coffee-gift': [2000, 2000, "Bag of Kenyan coffee with a pour-over set, a thoughtful corporate gift"],
-  'ke-gift-hamper': [1023, 776, "Festive gift hamper wrapped with a red ribbon and gift tags"],
-  'ke-hands-sewing': [2000, 1330, "Hands guiding fabric through a sewing machine in a Kenyan workshop"],
-  'ke-kiondo-baskets': [1600, 1025, "Woven kiondo baskets and bags at a Nairobi market"],
-  'ke-kicc-expo': [2000, 1333, "Exhibitors and visitors at an entrepreneurship expo at KICC, Nairobi"],
-  'ke-nairobi-cbd': [2000, 1334, "Aerial view of Nairobi's central business district"],
-  'ke-students-uniform': [2000, 1333, "Kenyan students in school uniform in class"],
-  'ke-doctor-clinic': [2000, 1124, "School nurse examining a student at a clinic in Kenya"],
-  'ke-kicc': [2000, 1333, "Kenyatta International Convention Centre, Nairobi"],
-  'ke-kitenge-tailor': [2000, 1333, "Kenyan tailor sewing kitenge fabric"],
-  'ke-kiondo-bags': [1640, 1500, "Handwoven Kenyan kiondo sisal bags"],
-  'ke-kiondo-weaver': [1335, 2000, "Weaving a sisal kiondo basket by hand"],
-  'ke-skyline-kicc': [2000, 1500, "Nairobi skyline with KICC under a blue sky"],
-  'ke-maasai-market': [2000, 1054, "Colourful stalls at the Maasai Market in Nairobi"],
-  'ke-kitenge-fabrics': [2000, 1500, "Colourful kitenge fabrics"],
-  'ke-coffee-sacks': [2000, 1500, "Sacks of Kenyan coffee"],
-  'ke-coffee-beans': [2000, 1333, "Roasted Kenyan coffee beans in glass jars"],
-  'honey-jars': [2000, 1333, "Jars of golden honey"],
-  'leather-notebook': [2000, 1333, "Leather notebook and pen"],
-  'gift-boxes-ribbon': [1953, 1302, "Gift boxes wrapped with ribbon"],
-  'gifts-colourful': [2000, 1333, "Colourful wrapped gift boxes"],
-  'ke-diani-resort': [2000, 1143, "Beach resort at Diani, Kenya"],
-  'ke-safari-lodge': [1904, 1062, "Safari lodge in Taita Hills, Kenya"],
-  'ke-mombasa-dhow': [2000, 1327, "Dhow sailing past beachfront hotels in Mombasa"],
-  'ke-tea-fields': [2000, 1265, "Tea plantation in the Kenyan highlands"],
 } as const;
-
-/** Inline photo block for article bodies (rendered by PortableBody, imported to Sanity by the seed script). */
-const photo = (name: keyof typeof STOCK, caption?: string) => ({ _type: 'image', _key: `img-${name}`, img: stock(name), caption });
-/** md() plus `@photo stock-name | caption` lines turned into inline photos. */
-const article = (src: string) => md(src).map((b) => (b._type === 'photoRef' ? photo(b.name as keyof typeof STOCK, b.caption as string | undefined) : b));
 
 export const settings: Settings = {
   name: 'Eljaya Trading Co.',
@@ -173,12 +136,6 @@ export const home: Home = {
       heading: 'Gifts your clients actually keep',
       text: 'Branded bottles, mugs, notebooks and gift sets that sit on desks for years, not drawers.',
     },
-    {
-      image: stock('ke-skyline-kicc'),
-      eyebrow: 'Made in Nairobi · Delivered across Kenya',
-      heading: 'Your local partner for brands that travel',
-      text: 'From Coffee Plaza to Mombasa, Kisumu and Eldoret, we produce locally and deliver countrywide.',
-    },
   ],
   marquee: [
     'Corporate apparel', 'Jute & eco bags', 'Branded bottles', 'Custom packaging', 'Caps & headwear',
@@ -190,7 +147,7 @@ export const home: Home = {
   ecoHeading: 'Better for your brand. Better for Kenya.',
   ecoText:
     'Kenya’s plastic regulations and customers’ expectations are changing fast. We help brands make the switch with biodegradable jute, kraft and recycled materials that look premium and get reused for months.',
-  ecoImage: stock('ke-kiondo-baskets'),
+  ecoImage: stock('kraft-bags'),
   ecoPoints: [
     '100% biodegradable jute & canvas options',
     'Recycled-paper notebooks & kraft packaging',
@@ -198,7 +155,6 @@ export const home: Home = {
     'Phased switch plans that fit your budget',
   ],
   showcase: [
-    stock('ke-kitenge-tailor'), stock('ke-maasai-market'), stock('gift-boxes-ribbon'), stock('ke-coffee-sacks'), stock('ke-kitenge-fabrics'), stock('honey-jars'), stock('gifts-colourful'),
     stock('tees-hangers'), I.jute, stock('mug-zigzag'), I.caps, stock('threads-jar'), stock('notebook-coffee'), I.gift,
     stock('bottles-steel'), stock('sewing-2'), I.reflectors, stock('kraft-bags'), stock('tees-folded'), I.banners,
     stock('fabric-rolls'), I.notebooks, stock('cards-blue'), stock('hivis-team'), I.polo, stock('threads-rainbow'), stock('mug-enamel'),
@@ -211,8 +167,8 @@ export const about: About = {
   heading: 'We build brands people can hold.',
   intro:
     'Eljaya Trading Co. Limited is a Nairobi branding company helping businesses build powerful, recognisable brands through custom merchandise, corporate apparel and eco-friendly packaging.',
-  image: stock('ke-kitenge-tailor'),
-  secondaryImage: stock('ke-hands-sewing'),
+  image: stock('sewing-2'),
+  secondaryImage: stock('threads-rainbow'),
   story: md(`
 Since 2015, Eljaya Trading Co. has been changing how Kenyan businesses approach brand development. We believe powerful branding isn’t just about a logo. It’s about consistent, memorable experiences at every touchpoint your customers meet.
 
@@ -342,24 +298,24 @@ export const services: Service[] = [
 
 export const packs: Pack[] = [
   { _id: 'pack-onboarding', title: 'New-hire welcome kit', badge: 'Most popular', tagline: 'Make day one memorable and keep your brand on every desk.', image: stock('tees-hangers'), items: ['Branded polo or T-shirt', 'A5 notebook & pen', 'Stainless steel bottle', 'Jute tote to carry it all'], minQty: 20 },
-  { _id: 'pack-festive', title: 'Festive client hamper', badge: 'Book by November', tagline: 'Year-end thank-you gifts that clients actually keep.', image: stock('ke-gift-hamper'), items: ['Branded gift box', 'Premium notebook', 'Steel tumbler or mug', 'Optional Kenyan coffee or honey'], minQty: 25 },
-  { _id: 'pack-conference', title: 'Conference & event pack', tagline: 'Everything delegates need, with your logo front and centre.', image: stock('ke-kicc'), items: ['Printed jute or canvas bag', 'Notebook & pen', 'Branded cap or lanyard', 'Pull-up banner for the venue'], minQty: 50 },
-  { _id: 'pack-eco', title: 'Eco brand starter', badge: 'Plastic-free', tagline: 'Switch to sustainable packaging and branded reusables in one order.', image: stock('ke-kiondo-bags'), items: ['Kraft paper carrier bags', 'Printed jute totes', 'Recycled-paper notebooks', 'Reusable bottles'], minQty: 50 },
+  { _id: 'pack-festive', title: 'Festive client hamper', badge: 'Book by November', tagline: 'Year-end thank-you gifts that clients actually keep.', image: stock('giftbox-black'), items: ['Branded gift box', 'Premium notebook', 'Steel tumbler or mug', 'Optional Kenyan coffee or honey'], minQty: 25 },
+  { _id: 'pack-conference', title: 'Conference & event pack', tagline: 'Everything delegates need, with your logo front and centre.', image: stock('notebook-coffee'), items: ['Printed jute or canvas bag', 'Notebook & pen', 'Branded cap or lanyard', 'Pull-up banner for the venue'], minQty: 50 },
+  { _id: 'pack-eco', title: 'Eco brand starter', badge: 'Plastic-free', tagline: 'Switch to sustainable packaging and branded reusables in one order.', image: stock('kraft-bags'), items: ['Kraft paper carrier bags', 'Printed jute totes', 'Recycled-paper notebooks', 'Reusable bottles'], minQty: 50 },
 ];
 
 export const industries: Industry[] = [
-  { _id: 'ind-corporate', title: 'Corporate & Finance', stat: '120+ clients', image: stock('ke-nairobi-cbd'), description: 'Polo shirts, notebooks and stationery that build trust and credibility in B2B markets.' },
-  { _id: 'ind-retail', title: 'Retail & E-commerce', stat: '80+ brands', image: stock('ke-kitenge-boutique'), description: 'Custom packaging and branded bags that elevate unboxing and customer experience.' },
-  { _id: 'ind-hospitality', title: 'Hospitality & Tourism', stat: '50+ properties', image: stock('ke-coast-resort'), description: 'Laundry bags, uniforms and brand touchpoints that create memorable guest experiences.' },
-  { _id: 'ind-healthcare', title: 'Healthcare & Wellness', stat: '40+ facilities', image: stock('ke-doctor-clinic'), description: 'Reflectors, uniforms and hygienic branded materials for medical and wellness facilities.' },
-  { _id: 'ind-education', title: 'Education', stat: '60+ schools', image: stock('ke-students-uniform'), description: 'Caps, uniforms and stationery that foster institutional pride and identity.' },
-  { _id: 'ind-ngo', title: 'Non-Profit & NGOs', stat: '45+ organisations', image: stock('ke-community-training'), description: 'Eco-friendly jute bags and sustainable merchandise aligned with mission and community.' },
+  { _id: 'ind-corporate', title: 'Corporate & Finance', stat: '120+ clients', image: stock('notebook-coffee'), description: 'Polo shirts, notebooks and stationery that build trust and credibility in B2B markets.' },
+  { _id: 'ind-retail', title: 'Retail & E-commerce', stat: '80+ brands', image: stock('kraft-bags'), description: 'Custom packaging and branded bags that elevate unboxing and customer experience.' },
+  { _id: 'ind-hospitality', title: 'Hospitality & Tourism', stat: '50+ properties', image: stock('mug-white'), description: 'Laundry bags, uniforms and brand touchpoints that create memorable guest experiences.' },
+  { _id: 'ind-healthcare', title: 'Healthcare & Wellness', stat: '40+ facilities', image: stock('hivis-runner'), description: 'Reflectors, uniforms and hygienic branded materials for medical and wellness facilities.' },
+  { _id: 'ind-education', title: 'Education', stat: '60+ schools', image: stock('markers'), description: 'Caps, uniforms and stationery that foster institutional pride and identity.' },
+  { _id: 'ind-ngo', title: 'Non-Profit & NGOs', stat: '45+ organisations', image: stock('hivis-team'), description: 'Eco-friendly jute bags and sustainable merchandise aligned with mission and community.' },
 ];
 
 export const projects: Project[] = [
   { _id: 'prj-corporate', slug: 'corporate-onboarding-kit', featured: true, title: 'Corporate onboarding kit', industry: 'Corporate & Finance', year: '2026', cover: I.corporate, gallery: [I.notebooks, stock('tees-hangers'), stock('bottles-steel'), stock('pens'), stock('mug-zigzag')], tags: ['Apparel', 'Stationery', 'Drinkware'], excerpt: 'A complete welcome pack of branded polos, notebooks and bottles that new hires actually use.' },
   { _id: 'prj-retail', slug: 'retail-eco-packaging', featured: true, title: 'Retail eco-packaging switch', industry: 'Retail & E-commerce', year: '2026', cover: I.retail, gallery: [I.gift, stock('kraft-bags'), I.jute, stock('giftbox-black')], tags: ['Packaging', 'Jute bags'], excerpt: 'Branded kraft boxes, gift bags and jute totes replacing single-use plastic at checkout.' },
-  { _id: 'prj-hospitality', slug: 'hospitality-guest-collection', featured: true, title: 'Hotel guest-room collection', industry: 'Hospitality & Tourism', year: '2025', cover: I.hospitality, gallery: [I.laundry, I.laundryMfg, stock('ke-diani-resort'), stock('ke-safari-lodge'), stock('ke-mombasa-dhow'), stock('sewing-4'), stock('rack-hangers')], tags: ['Laundry bags', 'Uniforms'], excerpt: 'Drawstring laundry bags, staff uniforms and in-room touchpoints in one consistent identity.' },
+  { _id: 'prj-hospitality', slug: 'hospitality-guest-collection', featured: true, title: 'Hotel guest-room collection', industry: 'Hospitality & Tourism', year: '2025', cover: I.hospitality, gallery: [I.laundry, I.laundryMfg, stock('sewing-4'), stock('rack-hangers')], tags: ['Laundry bags', 'Uniforms'], excerpt: 'Drawstring laundry bags, staff uniforms and in-room touchpoints in one consistent identity.' },
   { _id: 'prj-healthcare', slug: 'healthcare-staff-programme', title: 'Healthcare staff programme', industry: 'Healthcare & Wellness', year: '2025', cover: I.healthcare, gallery: [I.reflectors, stock('hivis-runner'), stock('tees-stack')], tags: ['Uniforms', 'Reflectors'], excerpt: 'Hard-wearing branded uniforms and high-visibility reflectors for facility teams.' },
   { _id: 'prj-education', slug: 'school-identity-refresh', title: 'School identity refresh', industry: 'Education', year: '2025', cover: I.education, gallery: [I.caps, stock('notebook-coffee'), stock('markers'), stock('stationery-flatlay')], tags: ['Caps', 'Stationery'], excerpt: 'Caps, uniforms and stationery that carry a school’s crest with pride.' },
   { _id: 'prj-ngo', slug: 'ngo-sustainable-campaign', title: 'NGO sustainable campaign', industry: 'Non-Profit & NGOs', year: '2024', cover: I.ngo, gallery: [I.jute, stock('banners-1'), stock('hivis-team'), stock('burlap')], tags: ['Jute bags', 'Banners'], excerpt: 'Campaign jute bags and event banners aligned with a community-first mission.' },
@@ -447,10 +403,10 @@ Contact us with three things: what you want, how many you need, and when you nee
 `),
   },
   {
-    _id: 'post-gifts', slug: 'corporate-gift-ideas-nairobi', category: 'Corporate gifting', publishedAt: '2026-07-17', readTime: 5, cover: stock('ke-coffee-gift'),
+    _id: 'post-gifts', slug: 'corporate-gift-ideas-nairobi', category: 'Corporate gifting', publishedAt: '2026-07-17', readTime: 5, cover: stock('giftbox-black'),
     title: 'Corporate Gift Ideas for Nairobi Businesses This Festive Season',
     excerpt: 'Practical, well-received corporate gift ideas ranked by budget, from branded notebooks to premium executive hampers.',
-    body: article(`
+    body: md(`
 Corporate gifting season sneaks up fast, and generic gifts rarely leave an impression. The best corporate gifts are practical, well-branded, and feel considered rather than obligatory. Here are ideas Nairobi businesses have used successfully, ranked by budget.
 
 ## Budget-Friendly Options
@@ -459,29 +415,19 @@ Branded notebooks paired with a pen set remain a reliable choice for client appr
 
 The key at this level is quality over quantity. A single well-made branded item leaves a better impression than a bag of cheap giveaways.
 
-@photo gift-boxes-ribbon | Simple, well-wrapped gifts make a stronger impression than a bag of giveaways.
-
 ## Mid-Range: Client and Partner Gifts
 
 Branded travel mugs or stainless steel bottles strike a good balance between cost and perceived value. Pair with a locally sourced treat such as Kenyan coffee or honey for a gift that feels considered.
 
 At this level, packaging matters. A branded gift box or quality jute bag elevates even a simple item, because the unboxing is part of the gift.
 
-@photo ke-coffee-beans | Kenyan coffee pairs beautifully with a branded mug or tumbler.
-
-@photo honey-jars | Local honey is an easy, well-loved addition to a client hamper.
-
 ## Premium: Executive and VIP Gifts
 
 For senior stakeholders, a curated hamper with premium branded items signals more thought than a single item. A quality notebook, a leather-look portfolio and a branded stainless steel bottle together create a cohesive set.
 
-@photo leather-notebook | A quality notebook is the anchor of most executive gift sets.
-
 ## Eco-Conscious Options
 
 More Kenyan businesses are asking for sustainable gifting. Jute totes, bamboo pen sets and recycled-paper notebooks let you gift meaningfully while aligning with sustainability goals. See our [eco-friendly range](/services/jute-eco-bags).
-
-@photo ke-kiondo-bags | Kenyan-made kiondo baskets: a sustainable gift with real local character.
 
 ## Planning Ahead
 
@@ -494,7 +440,7 @@ Orders spike in November and December, so production slots fill quickly. Orderin
     _id: 'post-eco', slug: 'eco-friendly-packaging-kenya', category: 'Sustainable packaging', publishedAt: '2026-07-31', readTime: 6, cover: stock('kraft-bags'),
     title: 'Eco-Friendly Packaging Options for Kenyan Retail Brands',
     excerpt: 'Kraft paper, jute bags, recycled cardboard and biodegradable alternatives: what is available and what to consider when switching from plastic.',
-    body: article(`
+    body: md(`
 Kenya’s plastic regulations, along with growing customer demand for sustainability, have pushed many retail brands to reconsider their packaging. The good news: the alternatives have improved significantly in quality and availability.
 
 ## Kraft Paper Bags
@@ -505,13 +451,9 @@ Kraft paper is one of the most cost-effective eco-friendly switches available. I
 
 More durable than paper, jute bags are reusable and become a secondary form of advertising as customers carry them for months. The higher upfront cost is offset by extended brand visibility. See our [branded jute bags](/services/jute-eco-bags).
 
-@photo ke-kiondo-weaver | Hand-woven sisal kiondo bags show how natural fibres can carry a brand.
-
 ## Recycled Cardboard Boxes
 
 For product packaging, recycled cardboard with minimal ink coverage is cheaper to produce and more sustainable than virgin cardboard with full-colour printing. For e-commerce brands this is often the highest-impact switch.
-
-@photo ke-tea-fields | Customers increasingly expect brands to respect the landscape they live in.
 
 ## Biodegradable Poly Alternatives
 

@@ -45,17 +45,6 @@ async function image(img?: Img | null) {
 
 const gallery = async (imgs?: Img[]) =>
   imgs ? Promise.all(imgs.map(async (i, k) => ({ _key: `g${k}`, ...(await image(i)) }))) : undefined;
-/** Article bodies: upload inline photos and turn them into Sanity image blocks. */
-async function richBody(blocks?: unknown[]) {
-  if (!blocks) return undefined;
-  return Promise.all(
-    blocks.map(async (b) => {
-      const blk = b as { _type?: string; _key?: string; img?: Img; caption?: string };
-      if (blk._type !== 'image' || !blk.img) return b;
-      return { _key: blk._key, ...(await image(blk.img)), ...(blk.caption ? { caption: blk.caption } : {}) };
-    }),
-  );
-}
 const keyed = <T extends object>(arr: T[], p: string) => arr.map((x, i) => ({ _key: `${p}${i}`, ...x }));
 const slug = (current: string) => ({ _type: 'slug', current });
 
@@ -114,7 +103,7 @@ async function build() {
   for (const p of F.posts) {
     docs.push({
       _id: p._id, _type: 'post', title: p.title, slug: slug(p.slug), publishedAt: p.publishedAt, category: p.category,
-      excerpt: p.excerpt, cover: await image(p.cover), body: await richBody(p.body),
+      excerpt: p.excerpt, cover: await image(p.cover), body: p.body,
     });
   }
   F.testimonials.forEach((t, i) => docs.push({ _id: t._id, _type: 'testimonial', order: i + 1, name: t.name, role: t.role, quote: t.quote, rating: t.rating }));
