@@ -87,6 +87,7 @@ export function Footer({ settings: s, services }: { settings: Settings; services
           <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
             <Link href="/privacy" className="hover:text-paper">Privacy</Link>
             <Link href="/terms" className="hover:text-paper">Terms</Link>
+            <Link href="/credits" className="hover:text-paper">Photo credits</Link>
             <span className="hidden h-3 w-px bg-white/20 sm:block" />
             <span>
               Website by{' '}

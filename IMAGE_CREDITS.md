@@ -1,6 +1,6 @@
 # Image credits
 
-Stock photos in `public/images/stock/` are **public domain (PDM) or CC0**: free for commercial use, no attribution required. Sources are listed for the record.
+Stock photos in `public/images/stock/` are **public domain (PDM), CC0, CC BY or CC BY-SA**, all free for commercial use. CC BY / BY-SA photos **must stay credited**: they are listed on the site's **/credits** page (`lib/photo-credits.ts`), linked from the footer. Keep that page when changing the site.
 
 | File | License | Source |
 | --- | --- | --- |
@@ -39,5 +39,42 @@ Stock photos in `public/images/stock/` are **public domain (PDM) or CC0**: free 
 | stock/sewing-2.webp | PDM | https://www.flickr.com/photos/132740829@N02/21692848631 |
 | stock/sewing-4.webp | PDM | https://www.flickr.com/photos/132740829@N02/21692847371 |
 | stock/burlap.webp | CC0 | https://www.rawpixel.com/image/6170291/brown-burlap-sack-texture-fabric-textile-design |
+
+
+## Kenyan scenes (added October 2026)
+
+| File | License | Creator | Source |
+| --- | --- | --- | --- |
+| stock/ke-nairobi-skyline.webp | CC BY-SA 2.0 | wrcomms | https://www.flickr.com/photos/134037448@N03/33301983500 |
+| stock/ke-kitenge-boutique.webp | CC BY 2.0 | Ninara | https://www.flickr.com/photos/37583176@N00/51947432627 |
+| stock/ke-coast-resort.webp | Public domain | makeitkenya | https://www.flickr.com/photos/132740829@N02/20301115424 |
+| stock/ke-classroom.webp | CC BY 2.0 | Moving Mountains Trust | https://www.flickr.com/photos/53973575@N05/5050542720 |
+| stock/ke-community-training.webp | CC BY 2.0 | CGIAR Climate | https://www.flickr.com/photos/55227776@N04/9417196732 |
+| stock/ke-coffee-gift.webp | CC BY 2.0 | coffee-rank | https://www.flickr.com/photos/189612330@N06/50609864348 |
+| stock/ke-gift-hamper.webp | CC BY 2.0 | poppet with a camera | https://www.flickr.com/photos/30070299@N06/6561030473 |
+| stock/ke-hands-sewing.webp | CC BY 2.0 | alaina.buzas | https://www.flickr.com/photos/23132451@N03/5018715340 |
+| stock/ke-kiondo-baskets.webp | CC BY 2.0 | Ninara | https://www.flickr.com/photos/37583176@N00/51948420418 |
+| stock/ke-kicc-expo.webp | Public domain | makeitkenya | https://www.flickr.com/photos/132740829@N02/20758344658 |
+| stock/ke-nurse-scrubs.webp | CC BY-SA 4.0 | Isaiah Maghanga | https://commons.wikimedia.org/wiki/File:The_Nurse_2.jpg |
+| stock/ke-nairobi-cbd.webp | CC BY 2.0 | ninara | https://commons.wikimedia.org/wiki/File:Nairobi_City_centre_including_Basilica.jpg |
+| stock/ke-students-uniform.webp | CC BY-SA 4.0 | Queen Asali | https://commons.wikimedia.org/wiki/File:Male_Kenyan_students_at_Shela_Primary_School_-_Lamu_county.jpg |
+| stock/ke-doctor-clinic.webp | CC BY-SA 4.0 | Nduati.githae | https://commons.wikimedia.org/wiki/File:School_nurse_checks_student%27s_health.jpg |
+| stock/ke-kicc.webp | CC0 | Francis Akuka for the Wikimedia Foundation | https://commons.wikimedia.org/wiki/File:Kenyatta_International_Convention_Centre_02.jpg |
+| stock/ke-kitenge-tailor.webp | CC BY-SA 4.0 | Isaiah Maghanga | https://commons.wikimedia.org/wiki/File:South_Nyanza_Tailor.jpg |
+| stock/ke-kiondo-bags.webp | CC BY-SA 3.0 | Christian Dubois (utilisateur Omondi) | https://commons.wikimedia.org/wiki/File:Kiondo_%26_okapo.JPG |
+| stock/ke-kiondo-weaver.webp | CC BY-SA 4.0 | Tish Madesh | https://commons.wikimedia.org/wiki/File:Making_Kiondo_Basket_in_Kenya.jpg |
+| stock/ke-skyline-kicc.webp | CC BY-SA 3.0 | Lmwangi | https://commons.wikimedia.org/wiki/File:Nairobi_skyline_P1000020.jpg |
+| stock/ke-maasai-market.webp | CC BY-SA 4.0 | Ninaras | https://commons.wikimedia.org/wiki/File:Masai_Market_Nairobi_01.jpg |
+| stock/ke-kitenge-fabrics.webp | CC BY-SA 3.0 | Fanny Schertzer | https://commons.wikimedia.org/wiki/File:Kanga_and_kitenge_in_Tengeru_Market,_Arusha,_Tanzania.jpg |
+| stock/ke-coffee-sacks.webp | CC BY 2.0 | Bex Walton | https://commons.wikimedia.org/wiki/File:Kenya_coffee_bags.jpg |
+| stock/ke-coffee-beans.webp | CC BY-SA 4.0 | Go2africa | https://commons.wikimedia.org/wiki/File:Kenyan_Coffee_at_Bean_There.jpg |
+| stock/honey-jars.webp | CC BY-SA 4.0 | Marcobeltrametti | https://commons.wikimedia.org/wiki/File:Honey_miele.jpg |
+| stock/leather-notebook.webp | CC0 | Kelly Jean kellyjean | https://commons.wikimedia.org/wiki/File:Leather_notebook_(Unsplash).jpg |
+| stock/gift-boxes-ribbon.webp | CC BY-SA 4.0 | W.carter | https://commons.wikimedia.org/wiki/File:Gift_wrapping_in_a_jewellery_shop_7.jpg |
+| stock/gifts-colourful.webp | CC0 | www.Pixel.la Free Stock Photos | https://commons.wikimedia.org/wiki/File:Christmas-xmas-gifts-presents_(23698727474).jpg |
+| stock/ke-diani-resort.webp | CC BY 2.0 | John Hickey-Fry | https://commons.wikimedia.org/wiki/File:WaterLovers_Beach_Resort.jpg |
+| stock/ke-safari-lodge.webp | CC BY-SA 4.0 | HobsonM | https://commons.wikimedia.org/wiki/File:The_best_safari_lodges.jpg |
+| stock/ke-mombasa-dhow.webp | CC BY-SA 4.0 | Bahnfrend | https://commons.wikimedia.org/wiki/File:Hotel_English_Point_Marina_%26_Spa,_2025_(01).jpg |
+| stock/ke-tea-fields.webp | CC BY 2.0 | Ninara | https://commons.wikimedia.org/wiki/File:Tigoni_Tea_Farm_near_Nairobi,_Kenya_(52543251715).jpg |
 
 All other images in `public/images/` are Eljaya's own product imagery.
