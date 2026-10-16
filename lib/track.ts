@@ -7,6 +7,7 @@ const META_EVENTS: Record<string, string> = {
   whatsapp_click: 'Contact',
   phone_click: 'Contact',
   add_to_quote: 'AddToCart',
+  review_submit: 'SubmitApplication',
 };
 
 /** Sends a conversion event to Google Analytics 4 and the Meta Pixel when they're configured. */

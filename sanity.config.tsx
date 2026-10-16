@@ -83,7 +83,30 @@ export default defineConfig({
             list(S, 'pack', 'Gift packs', GiftIcon),
             list(S, 'project', 'Portfolio', CaseIcon),
             list(S, 'post', 'News & blog', DocumentTextIcon),
-            list(S, 'testimonial', 'Testimonials', BlockquoteIcon),
+            S.listItem()
+              .title('Reviews')
+              .icon(BlockquoteIcon)
+              .child(
+                S.list()
+                  .title('Reviews')
+                  .items([
+                    S.listItem().title('⏳ Waiting for approval').icon(BlockquoteIcon).child(
+                      S.documentList().title('Waiting for approval').schemaType('testimonial')
+                        .filter('_type == "testimonial" && status == "pending"')
+                        .defaultOrdering([{ field: 'submittedAt', direction: 'desc' }]),
+                    ),
+                    S.listItem().title('✅ On the website').icon(BlockquoteIcon).child(
+                      S.documentList().title('On the website').schemaType('testimonial')
+                        .filter('_type == "testimonial" && (!defined(status) || status == "approved")'),
+                    ),
+                    S.listItem().title('🚫 Rejected').icon(BlockquoteIcon).child(
+                      S.documentList().title('Rejected').schemaType('testimonial')
+                        .filter('_type == "testimonial" && status == "rejected"'),
+                    ),
+                    S.divider(),
+                    S.documentTypeListItem('testimonial').title('All reviews').icon(BlockquoteIcon),
+                  ]),
+              ),
             list(S, 'industry', 'Industries', TagsIcon),
             list(S, 'faq', 'FAQs', HelpCircleIcon),
             list(S, 'clientLogo', 'Client logos', ImagesIcon),

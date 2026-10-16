@@ -64,6 +64,7 @@ export function Footer({ settings: s, services }: { settings: Settings; services
 
           <FooterCol title="Company" className="lg:col-span-2">
             {NAV.map((n) => <li key={n.href}><Link href={n.href} className="hover:text-lime">{n.label}</Link></li>)}
+            <li><Link href="/reviews" className="hover:text-lime">Reviews</Link></li>
           </FooterCol>
 
           <FooterCol title="Visit & contact" className="lg:col-span-3">

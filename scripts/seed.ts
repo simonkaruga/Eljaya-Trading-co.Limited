@@ -106,7 +106,7 @@ async function build() {
       excerpt: p.excerpt, cover: await image(p.cover), body: p.body,
     });
   }
-  F.testimonials.forEach((t, i) => docs.push({ _id: t._id, _type: 'testimonial', order: i + 1, name: t.name, role: t.role, quote: t.quote, rating: t.rating }));
+  F.testimonials.forEach((t, i) => docs.push({ _id: t._id, _type: 'testimonial', status: 'approved', source: 'manual', order: i + 1, name: t.name, role: t.role, quote: t.quote, rating: t.rating }));
   F.faqs.forEach((f, i) => docs.push({ _id: f._id, _type: 'faq', order: i + 1, question: f.question, answer: f.answer }));
   for (const key of ['privacy', 'terms'] as const) {
     const l = F.legal[key];

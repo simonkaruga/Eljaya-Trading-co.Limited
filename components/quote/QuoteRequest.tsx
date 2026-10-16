@@ -8,6 +8,7 @@ import { ArrowUpRight, CalendarClock, CheckCircle2, Loader2, Minus, Paperclip, P
 import { DECORATIONS, ksh, lineEstimate, quote, useQuote, type QuoteItem } from '@/lib/quote';
 import { track } from '@/lib/track';
 import { WhatsAppIcon } from '../icons';
+import { usePreviewLogo } from '@/lib/previewLogo';
 
 const input = 'w-full rounded-xl border border-line bg-white px-4 py-3 text-[0.95rem] outline-none transition-colors focus:border-leaf';
 
@@ -34,6 +35,8 @@ export function QuoteRequest({ whatsapp, packsHref = '/services#packs' }: { what
   const [error, setError] = useState('');
   const [neededBy, setNeededBy] = useState('');
   const [fileName, setFileName] = useState('');
+  // Logo the visitor tried in the homepage preview, attached automatically unless they pick another file
+  const preview = usePreviewLogo();
 
   const estimate = useMemo(() => items.reduce((s, i) => s + lineEstimate(i), 0), [items]);
   const unpriced = items.some((i) => !i.unitPrice);
@@ -48,6 +51,11 @@ export function QuoteRequest({ whatsapp, packsHref = '/services#packs' }: { what
     fd.set('estimate', String(estimate));
     fd.set('service', items.length === 1 ? items[0].product : `${items.length} products`);
     fd.set('message', `${summary(items)}\n\n${fd.get('notes') ?? ''}`.trim());
+    const chosen = fd.get('artwork');
+    if (preview && !(chosen instanceof File && chosen.size > 0)) {
+      const blob = await (await fetch(preview.dataUrl)).blob();
+      fd.set('artwork', blob, preview.name || 'logo.png');
+    }
     try {
       const res = await fetch('/api/contact', { method: 'POST', body: fd });
       const data = await res.json().catch(() => ({}));
@@ -80,7 +88,7 @@ export function QuoteRequest({ whatsapp, packsHref = '/services#packs' }: { what
       <div className="mx-auto max-w-xl rounded-[2rem] border border-dashed border-line p-10 text-center">
         <ShoppingBag className="mx-auto size-12 text-leaf" />
         <h2 className="mt-5 text-3xl">Your quote is empty</h2>
-        <p className="mt-3 text-ink-2">Pick products, set quantities and we’ll price everything in one go, with no obligation.</p>
+        <p className="mt-3 text-ink-2">Pick products, set quantities and we’ll price everything in one go, with no obligation.{preview ? ' Your previewed logo is saved and will be attached.' : ''}</p>
         <div className="mt-7 flex flex-wrap justify-center gap-3">
           <Link href="/services" className="inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 font-semibold text-paper hover:bg-leaf">Browse products <ArrowUpRight className="size-4" /></Link>
           <Link href={packsHref} className="rounded-full border border-line px-6 py-3.5 font-semibold hover:border-ink">See gift packs</Link>
@@ -170,7 +178,7 @@ export function QuoteRequest({ whatsapp, packsHref = '/services#packs' }: { what
             </label>
             <label className="flex cursor-pointer items-center gap-3 rounded-xl border border-dashed border-ink/25 bg-white/60 px-4 py-3 text-sm hover:border-leaf sm:col-span-2">
               <Paperclip className="size-4 shrink-0 text-leaf" />
-              <span className="min-w-0 flex-1 truncate">{fileName || 'Attach your logo (optional, max 10MB)'}</span>
+              <span className="min-w-0 flex-1 truncate">{fileName || (preview ? `Logo from preview attached: ${preview.name}` : 'Attach your logo (optional, max 10MB)')}</span>
               <input name="artwork" type="file" accept=".png,.jpg,.jpeg,.svg,.pdf,.ai,.eps,.webp" className="sr-only" onChange={(e) => setFileName(e.target.files?.[0]?.name ?? '')} />
             </label>
             <textarea name="notes" rows={3} placeholder="Anything else? Colours, print positions, sizes…" className={`${input} resize-y sm:col-span-2`} />

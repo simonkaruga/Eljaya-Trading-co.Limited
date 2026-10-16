@@ -27,7 +27,7 @@ const POST = `_id, title, "slug": slug.current, category, excerpt, cover${IMG}, 
 export const postsQ = groq`*[_type == "post" && defined(slug.current) && publishedAt <= now()] | order(publishedAt desc){ ${POST} }`;
 export const postQ = groq`*[_type == "post" && slug.current == $slug][0]{ ${POST}, ${RICH} }`;
 
-export const testimonialsQ = groq`*[_type == "testimonial"] | order(order asc, _createdAt asc){ _id, name, role, quote, rating, photo${IMG} }`;
+export const testimonialsQ = groq`*[_type == "testimonial" && (!defined(status) || status == "approved")] | order(order asc, _createdAt asc){ _id, name, role, quote, rating, photo${IMG} }`;
 export const faqsQ = groq`*[_type == "faq"] | order(order asc){ _id, question, answer }`;
 export const clientLogosQ = groq`*[_type == "clientLogo"] | order(order asc){ _id, name, url, logo${IMG} }`;
 export const legalQ = groq`*[_id == $id][0]{ title, updated, "body": body[]{ ... } }`;

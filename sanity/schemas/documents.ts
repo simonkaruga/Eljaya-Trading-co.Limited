@@ -158,18 +158,43 @@ export const post = defineType({
 
 export const testimonial = defineType({
   name: 'testimonial',
-  title: 'Testimonial',
+  title: 'Review',
   type: 'document',
   icon: BlockquoteIcon,
   fields: [
+    defineField({
+      name: 'status',
+      title: 'Show on website?',
+      type: 'string',
+      initialValue: 'approved',
+      description: 'Reviews sent from the website arrive as "Waiting" and stay hidden until you approve them.',
+      options: {
+        list: [
+          { title: '⏳ Waiting for approval', value: 'pending' },
+          { title: '✅ Approved (shown on website)', value: 'approved' },
+          { title: '🚫 Rejected (hidden)', value: 'rejected' },
+        ],
+        layout: 'radio',
+      },
+    }),
     defineField({ name: 'name', title: 'Name', type: 'string', validation: (r) => r.required() }),
     defineField({ name: 'role', title: 'Role & company', type: 'string', description: 'e.g. HR Manager, Nairobi International School' }),
     defineField({ name: 'quote', title: 'What they said', type: 'text', rows: 4, validation: (r) => r.required() }),
     defineField({ name: 'rating', title: 'Stars', type: 'number', initialValue: 5, validation: (r) => r.min(1).max(5) }),
     imageField('photo', 'Photo (optional)'),
+    defineField({ name: 'email', title: 'Email (private, never shown)', type: 'string', readOnly: true }),
+    defineField({ name: 'source', title: 'Source', type: 'string', readOnly: true, options: { list: ['website', 'manual'] } }),
+    defineField({ name: 'submittedAt', title: 'Received', type: 'datetime', readOnly: true }),
     orderField,
   ],
-  preview: { select: { title: 'name', subtitle: 'role', media: 'photo' } },
+  preview: {
+    select: { name: 'name', role: 'role', status: 'status', rating: 'rating', media: 'photo' },
+    prepare: ({ name, role, status, rating, media }) => ({
+      title: `${status === 'pending' ? '⏳ ' : status === 'rejected' ? '🚫 ' : ''}${name ?? ''}`,
+      subtitle: `${'★'.repeat(rating ?? 0)} ${role ?? ''}`,
+      media,
+    }),
+  },
 });
 
 export const faq = defineType({
