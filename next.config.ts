@@ -40,6 +40,8 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       { source: '/(.*)', headers: securityHeaders },
+      // Always re-check the retiring service worker so old cached copies of the site get cleared
+      { source: '/sw.js', headers: [{ key: 'Cache-Control', value: 'no-cache, no-store, must-revalidate' }, { key: 'Service-Worker-Allowed', value: '/' }] },
       { source: '/((?!studio).*)', headers: [{ key: 'X-Frame-Options', value: 'SAMEORIGIN' }] },
     ];
   },
